@@ -1,6 +1,8 @@
+import React from 'react';
+
 // import { Switch } from '@/components/ui/switch';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
     <nav className='py-4 flex justify-between'>
       <div>Navigation</div>
