@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Hari's Portfolio",
+  title: 'Hari Elangeswaran - Full Stack Developer / Data Scientist',
   description:
     'Welcome to my portfolio where I show my projects and experience',
 };
@@ -19,9 +19,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <div className='min-h-screen px-8 py-8'>
-          {/* <Navbar /> */}
-          {children}
+        <div className='min-h-screen'>
+          <Navbar />
+          <div className='p-8'>{children}</div>
         </div>
       </body>
     </html>
