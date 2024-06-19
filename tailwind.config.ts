@@ -19,6 +19,11 @@ const config = {
     },
     extend: {
       colors: {
+        cyan: {
+          10: 'rgb(245, 255, 255)', // Custom cyan-10
+          20: 'rgb(230, 254, 255)', // Custom cyan-20
+          30: 'rgb(220, 253, 255)', // Custom cyan-30
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -76,21 +81,24 @@ const config = {
           '60%': { transform: 'translateY(0)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
-        wave: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-4px)' },
+        'slide-up-ternary': {
+          '0%': { transform: 'translateY(90%)', opacity: '0' },
+          '90%': { transform: 'translateY(0)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
         },
-        shine: {
-          '0%, 100%': { color: 'rgb(22 78 99)' }, // text-cyan-50
-          '10%': { color: 'rgb(207 250 254)' }, // text-cyan-100
-          '20%': { color: 'rgb(165 243 252)' }, // text-cyan-200
-          '30%': { color: 'rgb(103 232 249)' }, // text-cyan-300
-          '40%': { color: 'rgb(34 211 238)' }, // text-cyan-400
-          '50%': { color: 'rgb(6 182 212)' }, // text-cyan-500
-          '60%': { color: 'rgb(8 145 178)' }, // text-cyan-600
-          '70%': { color: 'rgb(14 116 144)' }, // text-cyan-700
-          '80%': { color: 'rgb(21 94 117)' }, // text-cyan-800
-          '90%': { color: 'rgb(22 78 99)' }, // text-cyan-900
+        'wave': {
+          '0%, 20%, 83.33%, 100%': {
+            transform: 'translateY(0)',
+            color: 'rgb(22 78 99)',
+          }, // normal position during pause
+          '2%': { transform: 'translateY(-1px)', color: 'rgb(207 250 254)' }, // start of first slow wave
+          '4%': { transform: 'translateY(-2px)', color: 'rgb(165 243 252)' },
+          '6%': { transform: 'translateY(-3px)', color: 'rgb(103 232 249)' },
+          '8%': { transform: 'translateY(-4px)', color: 'rgb(34 211 238)' },
+          '10%': { transform: 'translateY(-5px)', color: 'rgb(6 182 212)' }, // peak of first slow wave
+          '14%': { transform: 'translateY(0)', color: 'rgb(22 78 99)' }, // end of first slow wave
+          '15.33%': { transform: 'translateY(-5px)', color: 'rgb(6 182 212)' }, // peak of second fast wave
+          '16.67%': { transform: 'translateY(0)', color: 'rgb(22 78 99)' }, // end of second fast wave
         },
       },
       animation: {
@@ -98,8 +106,8 @@ const config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'slide-up': 'slide-up 0.5s ease-out forwards',
         'slide-up-secondary': 'slide-up-secondary 1s ease-out forwards',
-        'wave': 'wave 1s linear infinite 10s',
-        'shine': 'shine 1s linear infinite 10s',
+        'slide-up-ternary': 'slide-up-ternary 1s ease-out forwards',
+        'wave': 'wave 10s ease-in-out infinite',
       },
     },
   },
