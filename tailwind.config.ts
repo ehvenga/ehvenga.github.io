@@ -100,6 +100,26 @@ const config = {
           '15.33%': { transform: 'translateY(-5px)', color: 'rgb(6 182 212)' }, // peak of second fast wave
           '16.67%': { transform: 'translateY(0)', color: 'rgb(22 78 99)' }, // end of second fast wave
         },
+        'slideInLeft': {
+          '0%': { transform: 'translateX(0)', opacity: '0' },
+          '100%': { transform: 'translateX(100%)', opacity: '1' },
+        },
+        'fadeIn': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'growFromRight': {
+          '0%': {
+            width: '0%',
+            opacity: '0',
+            transform: 'translateX(0)',
+          },
+          '100%': {
+            width: '10rem',
+            opacity: '1',
+            transform: '-translateX(100%)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -108,6 +128,9 @@ const config = {
         'slide-up-secondary': 'slide-up-secondary 1s ease-out forwards',
         'slide-up-ternary': 'slide-up-ternary 1s ease-out forwards',
         'wave': 'wave 10s ease-in-out infinite',
+        'slideInLeft': 'slideInLeft 1s ease-out forwards',
+        'fadeIn': 'fadeIn 1s ease-out forwards',
+        'growFromRight': 'growFromRight 1s ease-out forwards',
       },
     },
   },

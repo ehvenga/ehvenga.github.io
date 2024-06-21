@@ -1,12 +1,17 @@
 import Image from 'next/image';
 import Hero from '@/components/Hero';
 import WorkExperience from '@/components/WorkExperience';
+import Build from '@/components/Build';
+import type { NextPage } from 'next';
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
     <main className='bg-cyan-20 px-60 py-32 flex flex-col h-full'>
       <Hero />
+      <Build />
       <WorkExperience />
     </main>
   );
-}
+};
+
+export default Home;

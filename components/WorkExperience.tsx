@@ -1,109 +1,122 @@
+'use client';
+
 import React from 'react';
+import { useInView } from 'react-intersection-observer';
+
+interface ExperienceProps {
+  company: string;
+  role: string;
+  responsibilities: string[];
+}
 
 const WorkExperience: React.FC = () => {
+  // Hook for the section header
+  const { ref: headerRef, inView: headerInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.5,
+  });
+
+  const { ref: borderRef, inView: borderInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.5,
+  });
+
   return (
     <section className='mt-28 text-cyan-950'>
-      <h3 className='text-6xl font-semibold'>
+      <h3
+        className={`heading text-6xl font-semibold transition-opacity duration-1000 ${
+          headerInView ? 'opacity-100' : 'opacity-0'
+        }`}
+        ref={headerRef}
+      >
         Work Experience<span className='text-teal-500'>.</span>
       </h3>
-      <div className='border-b-4 border-teal-500 w-20 my-5'></div>
-      <article className='text-lg w-[34em] mt-6 leading-relaxed'>
-        From innovative interactive webpages and scalable applications to
-        single-page apps and experimental 3D projects, I help teams build
-        ambitious yet accessible web experiences -{' '}
-        <span className='font-semibold'>the wilder, the better.</span>
+      <div
+        className={`border-b-4 border-teal-500 my-5 transition-all duration-1000 ${
+          borderInView ? 'animate-growFromRight' : 'w-0 opacity-0'
+        }`}
+        ref={borderRef}
+        style={{ right: 0, position: 'relative' }}
+      ></div>
+
+      <article className='text-lg w-[34em] mt-6 mb-12 leading-relaxed'>
+        Learn more about my experience and expertise in JavaScript, Python,
+        machine learning, and leading key projects.
       </article>
       <div className='divide-solid divide-y-2 divide-teal-200'>
-        <div className='flex justify-end mb-16 mt-32'>
-          <div>
-            <h4 className='text-4xl font-semibold'>
-              Bradley University<span className='text-teal-500'>.</span>
-            </h4>
-            <h5 className='text-2xl font-semibold text-cyan-800'>
-              Research Assistant<span className='text-teal-500'>.</span>
-            </h5>
-            <article className='text-lg w-[34em] mt-6 leading-relaxed'>
-              I have been working on interesting research challenges under
-              Dr.John Yoo regarding for automated modular system configuration.
-            </article>
-            <article className='text-lg w-[34em] mt-2 leading-relaxed'>
-              I have worked on the algorithms, front-end and back-end systems
-              for the backward compatible modular system design.
-            </article>
-            <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
-              View Project
-            </button>
-          </div>
-        </div>
-
-        <div className='flex justify-end mb-16'>
-          <div className='mt-16'>
-            <h4 className='text-4xl font-semibold'>
-              LEO1<span className='text-teal-500'>.</span>
-            </h4>
-            <h5 className='text-2xl font-semibold text-cyan-800'>
-              Full-Stack Developer<span className='text-teal-500'>.</span>
-            </h5>
-            <article className='text-lg w-[34em] mt-6 leading-relaxed'>
-              I have been working on interesting research challenges under
-              Dr.John Yoo regarding for automated modular system configuration.
-            </article>
-            <article className='text-lg w-[34em] mt-2 leading-relaxed'>
-              I have worked on the algorithms, front-end and back-end systems
-              for the backward compatible modular system design.
-            </article>
-            <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
-              View Live Website
-            </button>
-          </div>
-        </div>
-
-        <div className='flex justify-end mb-16'>
-          <div className='mt-16'>
-            <h4 className='text-4xl font-semibold'>
-              Axis Nodes<span className='text-teal-500'>.</span>
-            </h4>
-            <h5 className='text-2xl font-semibold text-cyan-800'>
-              Full-Stack Developer<span className='text-teal-500'>.</span>
-            </h5>
-            <article className='text-lg w-[34em] mt-6 leading-relaxed'>
-              I have been working on interesting research challenges under
-              Dr.John Yoo regarding for automated modular system configuration.
-            </article>
-            <article className='text-lg w-[34em] mt-2 leading-relaxed'>
-              I have worked on the algorithms, front-end and back-end systems
-              for the backward compatible modular system design.
-            </article>
-            <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
-              View Live Website
-            </button>
-          </div>
-        </div>
-
-        <div className='flex justify-end mb-16'>
-          <div className='mt-16'>
-            <h4 className='text-4xl font-semibold'>
-              Infiale Services<span className='text-teal-500'>.</span>
-            </h4>
-            <h5 className='text-2xl font-semibold text-cyan-800'>
-              Founder, Software Engineer, Product Manager
-              <span className='text-teal-500'>.</span>
-            </h5>
-            <article className='text-lg w-[34em] mt-6 leading-relaxed'>
-              I have been working on interesting research challenges under
-              Dr.John Yoo regarding for automated modular system configuration.
-            </article>
-            <article className='text-lg w-[34em] mt-2 leading-relaxed'>
-              I have worked on the algorithms, front-end and back-end systems
-              for the backward compatible modular system design.
-            </article>
-            <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
-              View Live Website
-            </button>
-          </div>
-        </div>
+        {renderExperience({
+          company: 'Bradley University',
+          role: 'Research Assistant',
+          responsibilities: [
+            'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+            'I have worked on the algorithms, front-end and back-end systems for the backward compatible modular system design.',
+          ],
+        })}
+        {renderExperience({
+          company: 'LEO1',
+          role: 'Full-Stack Developer',
+          responsibilities: [
+            'Leading development efforts on various web applications using modern technologies.',
+            'Focusing on user experience, responsive design, and front-end performance.',
+          ],
+        })}
+        {renderExperience({
+          company: 'Axis Nodes',
+          role: 'Full-Stack Developer',
+          responsibilities: [
+            'Contributing to both front-end and back-end development for dynamic client projects.',
+            'Ensuring scalability and performance of web applications.',
+          ],
+        })}
+        {renderExperience({
+          company: 'Infiale Services',
+          role: 'Founder, Software Engineer, Product Manager',
+          responsibilities: [
+            'Overseeing all phases of software development from conception to deployment.',
+            'Managing product development timelines and coordinating with cross-functional teams.',
+          ],
+        })}
       </div>
     </section>
+  );
+};
+
+const renderExperience = ({
+  company,
+  role,
+  responsibilities,
+}: ExperienceProps) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.3,
+  });
+
+  return (
+    <div className='flex justify-end mb-16' ref={ref}>
+      <div className='mt-16'>
+        <h4 className='text-4xl font-semibold'>
+          {company}
+          <span className='text-teal-500'>.</span>
+        </h4>
+        <h5 className='text-2xl font-semibold text-cyan-800'>
+          {role}
+          <span className='text-teal-500'>.</span>
+        </h5>
+        {responsibilities.map((text, index) => (
+          <article
+            key={index}
+            className={`text-lg w-[34em] mt-6 leading-relaxed transition-opacity duration-1000 ${
+              inView ? 'opacity-100' : 'opacity-10'
+            }`}
+          >
+            {text}
+          </article>
+        ))}
+        <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
+          View Live Website
+        </button>
+      </div>
+    </div>
   );
 };
 
