@@ -12,11 +12,11 @@ const Hero: React.FC = () => {
     <div>
       <section className='text-2xl text-cyan-950 mt-32'>
         <h1 className='text-[3.25em] leading-[1.1em] tracking-wide animate-slide-up font-semibold'>
-          About me
-          <span className='text-rose-400'>.</span>
+          Projects
+          <span className='text-orange-400'>.</span>
         </h1>
         <div
-          className={`border-b-4 border-rose-400 my-5 mt-3 transition-all duration-1000 ${
+          className={`border-b-4 border-orange-400 my-5 mt-3 transition-all duration-1000 ${
             borderInView ? 'animate-growFromRight' : 'w-0 opacity-0'
           }`}
           ref={borderRef}

@@ -21,7 +21,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={inter.className}>
         <div className='min-h-screen'>
           <Navbar />
-          <div className='p-8'>{children}</div>
+          <div className='p-8 h-screen overflow-hidden'>{children}</div>
         </div>
       </body>
     </html>
