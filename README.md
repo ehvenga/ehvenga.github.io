@@ -1,6 +1,7 @@
 # Hari's Portfolio
 
 Welcome to my portfolio! Here you'll find a showcase of my projects, skills, and experience as a Full-Stack Developer and Data Science Enthusiast.
+Visit my portfolio at [here](https://ehvenga.github.io/)
 
 ## About Me
 
