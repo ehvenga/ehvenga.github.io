@@ -9,8 +9,7 @@ interface ExperienceProps {
   responsibilities: string[];
 }
 
-const Education: React.FC = () => {
-  // Hook for the section header
+const AcademicProjects: React.FC = () => {
   const { ref: headerRef, inView: headerInView } = useInView({
     triggerOnce: true,
     threshold: 0.5,
@@ -20,16 +19,15 @@ const Education: React.FC = () => {
     triggerOnce: true,
     threshold: 0.5,
   });
-
   return (
-    <section className='mt-28 mb-28 text-cyan-950'>
+    <section className='mt-28 text-cyan-950'>
       <h3
         className={`heading text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
         ref={headerRef}
       >
-        Education<span className='text-rose-400'>.</span>
+        Academic Projects<span className='text-rose-400'>.</span>
       </h3>
       <div
         className={`border-b-4 border-rose-400 my-5 transition-all duration-1000 ${
@@ -38,7 +36,6 @@ const Education: React.FC = () => {
         ref={borderRef}
         style={{ right: 0, position: 'relative' }}
       ></div>
-
       <article className='text-lg w-[34em] mt-6 mb-12 leading-relaxed'>
         Learn more about my experience and expertise in JavaScript, Python,
         machine learning, and leading key projects.
@@ -49,6 +46,13 @@ const Education: React.FC = () => {
           role: 'Data Science & Analytics',
           responsibilities: [
             'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+          ],
+        })}
+        {renderExperience({
+          company: 'Manipal University of  Technology',
+          role: 'Mechanical Engineering',
+          responsibilities: [
+            'Leading development efforts on various web applications using modern technologies.',
           ],
         })}
         {renderExperience({
@@ -99,4 +103,4 @@ const renderExperience = ({
   );
 };
 
-export default Education;
+export default AcademicProjects;

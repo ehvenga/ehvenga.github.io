@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
     threshold: 0.5,
   });
   return (
-    <div>
+    <div className=''>
       <section className='text-2xl text-cyan-950 mt-32'>
         <h1 className='text-[3.25em] leading-[1.1em] tracking-wide animate-slide-up font-semibold'>
           About me
