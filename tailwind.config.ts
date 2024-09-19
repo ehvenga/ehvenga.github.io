@@ -100,6 +100,48 @@ const config = {
           '15.33%': { transform: 'translateY(-5px)', color: 'rgb(6 182 212)' }, // peak of second fast wave
           '16.67%': { transform: 'translateY(0)', color: 'rgb(22 78 99)' }, // end of second fast wave
         },
+        'wave-or': {
+          '0%, 20%, 83.33%, 100%': {
+            transform: 'translateY(0)',
+            color: 'rgb(154 52 18)', // orange-800
+          },
+          '2%': { transform: 'translateY(-1px)', color: 'rgb(254 237 200)' }, // orange-100
+          '4%': { transform: 'translateY(-2px)', color: 'rgb(254 215 170)' }, // orange-200
+          '6%': { transform: 'translateY(-3px)', color: 'rgb(253 186 116)' }, // orange-300
+          '8%': { transform: 'translateY(-4px)', color: 'rgb(251 146 60)' }, // orange-400
+          '10%': { transform: 'translateY(-5px)', color: 'rgb(249 115 22)' }, // orange-500
+          '14%': { transform: 'translateY(0)', color: 'rgb(154 52 18)' }, // back to orange-800
+          '15.33%': { transform: 'translateY(-5px)', color: 'rgb(249 115 22)' }, // orange-500
+          '16.67%': { transform: 'translateY(0)', color: 'rgb(154 52 18)' }, // back to orange-800
+        },
+        'wave-ro': {
+          '0%, 20%, 83.33%, 100%': {
+            transform: 'translateY(0)',
+            color: 'rgb(159 18 57)', // rose-800
+          },
+          '2%': { transform: 'translateY(-1px)', color: 'rgb(255 228 230)' }, // rose-100
+          '4%': { transform: 'translateY(-2px)', color: 'rgb(254 205 211)' }, // rose-200
+          '6%': { transform: 'translateY(-3px)', color: 'rgb(253 164 175)' }, // rose-300
+          '8%': { transform: 'translateY(-4px)', color: 'rgb(251 113 133)' }, // rose-400
+          '10%': { transform: 'translateY(-5px)', color: 'rgb(244 63 94)' }, // rose-500
+          '14%': { transform: 'translateY(0)', color: 'rgb(159 18 57)' }, // back to rose-800
+          '15.33%': { transform: 'translateY(-5px)', color: 'rgb(244 63 94)' }, // rose-500
+          '16.67%': { transform: 'translateY(0)', color: 'rgb(159 18 57)' }, // back to rose-800
+        },
+        'wave-em': {
+          '0%, 20%, 83.33%, 100%': {
+            transform: 'translateY(0)',
+            color: 'rgb(6 95 70)', // emerald-800
+          },
+          '2%': { transform: 'translateY(-1px)', color: 'rgb(209 250 229)' }, // emerald-100
+          '4%': { transform: 'translateY(-2px)', color: 'rgb(167 243 208)' }, // emerald-200
+          '6%': { transform: 'translateY(-3px)', color: 'rgb(110 231 183)' }, // emerald-300
+          '8%': { transform: 'translateY(-4px)', color: 'rgb(52 211 153)' }, // emerald-400
+          '10%': { transform: 'translateY(-5px)', color: 'rgb(16 185 129)' }, // emerald-500
+          '14%': { transform: 'translateY(0)', color: 'rgb(6 95 70)' }, // back to emerald-800
+          '15.33%': { transform: 'translateY(-5px)', color: 'rgb(16 185 129)' }, // emerald-500
+          '16.67%': { transform: 'translateY(0)', color: 'rgb(6 95 70)' }, // back to emerald-800
+        },
         'slideInLeft': {
           '0%': { transform: 'translateX(0)', opacity: '0' },
           '100%': { transform: 'translateX(100%)', opacity: '1' },
@@ -128,6 +170,9 @@ const config = {
         'slide-up-secondary': 'slide-up-secondary 1s ease-out forwards',
         'slide-up-ternary': 'slide-up-ternary 1s ease-out forwards',
         'wave': 'wave 10s ease-in-out infinite',
+        'wave-or': 'wave-or 10s ease-in-out infinite',
+        'wave-ro': 'wave-ro 10s ease-in-out infinite',
+        'wave-em': 'wave-em 10s ease-in-out infinite',
         'slideInLeft': 'slideInLeft 1s ease-out forwards',
         'fadeIn': 'fadeIn 1s ease-out forwards',
         'growFromRight': 'growFromRight 1s ease-out forwards',
