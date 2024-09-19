@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
           {Array.from('SCROLL').map((letter, index) => (
             <span
               key={index}
-              className='inline-block animate-wave'
+              className='inline-block animate-wave-ro'
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {letter}
