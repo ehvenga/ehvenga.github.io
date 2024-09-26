@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
+import CustomLinkButton from '../resuable/CustomLinkButton';
 
 interface ExperienceProps {
   company: string;
@@ -98,6 +99,12 @@ const renderExperience = ({
             {text}
           </article>
         ))}
+        <div className='mt-10'>
+          <CustomLinkButton
+            href='profile'
+            text='Find out more'
+          ></CustomLinkButton>
+        </div>
       </div>
     </div>
   );

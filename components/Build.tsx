@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
+import CustomLinkButton from './resuable/CustomLinkButton';
 
 interface ExperienceProps {
   company: string;
@@ -47,21 +48,15 @@ const Build: React.FC = () => {
         <span className='font-semibold'>the wilder, the better.</span>
       </article>
       <div className='flex gap-x-6'>
-        <Link href='/profile'>
-          <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
-            Find out more
-          </button>
-        </Link>
-        <Link href='/projects'>
-          <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
-            Look at my projects
-          </button>
-        </Link>
-        <Link href='/about'>
-          <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
-            Get to know me
-          </button>
-        </Link>
+        <CustomLinkButton
+          href='profile'
+          text='Find out more'
+        ></CustomLinkButton>
+        <CustomLinkButton
+          href='projects'
+          text='Look at my projects'
+        ></CustomLinkButton>
+        <CustomLinkButton href='about' text='Get to know me'></CustomLinkButton>
       </div>
     </section>
   );
