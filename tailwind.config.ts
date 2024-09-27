@@ -146,6 +146,14 @@ const config = {
           '0%': { transform: 'translateX(0)', opacity: '0' },
           '100%': { transform: 'translateX(100%)', opacity: '1' },
         },
+        'slideDown': {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(0%)' },
+        },
+        'slideUp': {
+          '0%': { transform: 'translateY(0%)' },
+          '100%': { transform: 'translateY(-100%)' },
+        },
         'fadeIn': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
@@ -176,6 +184,8 @@ const config = {
         'slideInLeft': 'slideInLeft 1s ease-out forwards',
         'fadeIn': 'fadeIn 1s ease-out forwards',
         'growFromRight': 'growFromRight 1s ease-out forwards',
+        'slideDown': 'slideDown 0.7s ease-out forwards',
+        'slideUp': 'slideUp 0.3s ease-out forwards',
       },
     },
   },

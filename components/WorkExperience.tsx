@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
+import CustomLinkButton from './resuable/CustomLinkButton';
 
 interface ExperienceProps {
   company: string;
@@ -46,7 +47,7 @@ const WorkExperience: React.FC = () => {
       <div className='divide-solid divide-y-2 divide-teal-200'>
         {renderExperience({
           company: 'Bradley University',
-          role: 'Research Assistant',
+          role: 'Graduate Research Student',
           responsibilities: [
             'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
             'I have worked on the algorithms, front-end and back-end systems for the backward compatible modular system design.',
@@ -112,9 +113,12 @@ const renderExperience = ({
             {text}
           </article>
         ))}
-        <button className='border-2 border-indigo-500 rounded-lg px-6 py-2 text-lg font-semibold text-indigo-500 mt-10'>
-          View Live Website
-        </button>
+        <div className='mt-10'>
+          <CustomLinkButton
+            href='profile'
+            text='Find out more'
+          ></CustomLinkButton>
+        </div>
       </div>
     </div>
   );
