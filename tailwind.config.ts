@@ -159,16 +159,12 @@ const config = {
           '100%': { opacity: '1' },
         },
         'growFromRight': {
-          '0%': {
-            width: '0%',
-            opacity: '0',
-            transform: 'translateX(0)',
-          },
-          '100%': {
-            width: '10rem',
-            opacity: '1',
-            transform: '-translateX(100%)',
-          },
+          '0%': { width: '0%', right: '0' },
+          '100%': { width: '100%', right: '0' },
+        },
+        'slideInFromRight': {
+          '0%': { opacity: '0', transform: 'translateX(100%)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
         },
       },
       animation: {
@@ -183,7 +179,8 @@ const config = {
         'wave-em': 'wave-em 10s ease-in-out infinite',
         'slideInLeft': 'slideInLeft 1s ease-out forwards',
         'fadeIn': 'fadeIn 1s ease-out forwards',
-        'growFromRight': 'growFromRight 1s ease-out forwards',
+        'growFromRight': 'growFromRight 1s forwards',
+        'slideInFromRight': 'slideInFromRight 0.5s forwards',
         'slideDown': 'slideDown 0.7s ease-out forwards',
         'slideUp': 'slideUp 0.3s ease-out forwards',
       },
