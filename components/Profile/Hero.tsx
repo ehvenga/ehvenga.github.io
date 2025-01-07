@@ -16,8 +16,8 @@ const Hero: React.FC = () => {
           <span className='text-emerald-400'>.</span>
         </h1>
         <div
-          className={`border-b-4 border-emerald-400 my-5 mt-3 transition-all duration-1000 ${
-            borderInView ? 'animate-growFromRight' : 'w-0 opacity-0'
+          className={`border-b-4 border-emerald-400 my-5 mt-3 transition-all ${
+            borderInView ? 'animate-slideInBarFromRight' : 'w-0 opacity-0'
           }`}
           ref={borderRef}
           style={{ right: 0, position: 'relative' }}

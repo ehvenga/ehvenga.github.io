@@ -34,8 +34,8 @@ const Build: React.FC = () => {
         Let's Build Together<span className='text-teal-500'>.</span>
       </h3>
       <div
-        className={`border-b-4 border-teal-500 my-5 transition-all duration-1000 ${
-          borderInView ? 'animate-growFromRight' : 'w-0 opacity-0'
+        className={`border-b-4 border-teal-500 my-5 transition-all ${
+          borderInView ? 'animate-slideInBarFromRight' : 'w-0 opacity-0'
         }`}
         ref={borderRef}
         style={{ right: 0, position: 'relative' }}

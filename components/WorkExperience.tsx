@@ -8,6 +8,7 @@ interface ExperienceProps {
   company: string;
   role: string;
   responsibilities: string[];
+  buttonText: string;
 }
 
 const WorkExperience: React.FC = () => {
@@ -33,8 +34,8 @@ const WorkExperience: React.FC = () => {
         Work Experience<span className='text-teal-500'>.</span>
       </h3>
       <div
-        className={`border-b-4 border-teal-500 my-5 transition-all duration-1000 ${
-          borderInView ? 'animate-growFromRight' : 'w-0 opacity-0'
+        className={`border-b-4 border-teal-500 my-5 transition-all ${
+          borderInView ? 'animate-slideInBarFromRight' : 'w-0 opacity-0'
         }`}
         ref={borderRef}
         style={{ right: 0, position: 'relative' }}
@@ -52,6 +53,7 @@ const WorkExperience: React.FC = () => {
             'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
             'I have worked on the algorithms, front-end and back-end systems for the backward compatible modular system design.',
           ],
+          buttonText: 'Visit Github',
         })}
         {renderExperience({
           company: 'LEO1',
@@ -60,6 +62,7 @@ const WorkExperience: React.FC = () => {
             'Leading development efforts on various web applications using modern technologies.',
             'Focusing on user experience, responsive design, and front-end performance.',
           ],
+          buttonText: 'Visit Live Website',
         })}
         {renderExperience({
           company: 'Axis Nodes',
@@ -68,6 +71,7 @@ const WorkExperience: React.FC = () => {
             'Contributing to both front-end and back-end development for dynamic client projects.',
             'Ensuring scalability and performance of web applications.',
           ],
+          buttonText: 'View Github',
         })}
         {renderExperience({
           company: 'Infiale Services',
@@ -76,6 +80,7 @@ const WorkExperience: React.FC = () => {
             'Overseeing all phases of software development from conception to deployment.',
             'Managing product development timelines and coordinating with cross-functional teams.',
           ],
+          buttonText: 'View Live Website',
         })}
       </div>
     </section>
@@ -86,6 +91,7 @@ const renderExperience = ({
   company,
   role,
   responsibilities,
+  buttonText,
 }: ExperienceProps) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -114,10 +120,7 @@ const renderExperience = ({
           </article>
         ))}
         <div className='mt-10'>
-          <CustomLinkButton
-            href='profile'
-            text='Find out more'
-          ></CustomLinkButton>
+          <CustomLinkButton href='profile' text={buttonText}></CustomLinkButton>
         </div>
       </div>
     </div>
