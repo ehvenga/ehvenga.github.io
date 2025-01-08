@@ -1,8 +1,8 @@
 import React from 'react';
 import type { NextPage } from 'next';
-import Hero from '@/components/Profile/Hero';
+import Hero from '@/components/Work/Hero';
 
-const About: NextPage = () => {
+const Work: NextPage = () => {
   return (
     <main className='bg-lime-50 px-60 py-32 flex flex-col h-full overflow-y-scroll no-scrollbar'>
       <Hero />
@@ -10,4 +10,4 @@ const About: NextPage = () => {
   );
 };
 
-export default About;
+export default Work;

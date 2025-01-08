@@ -93,10 +93,6 @@ const config: Config = {
             opacity: '1',
           },
         },
-        /**
-         * NEW: softDrop for each nav item
-         * Goes from a slight upward offset + transparent to fully visible, dropped in.
-         */
         softDrop: {
           '0%': {
             transform: 'translateY(-12px)',
@@ -201,16 +197,9 @@ const config: Config = {
         },
       },
       animation: {
-        // Pink bar
         slideInBarFromRight: 'slideInBarFromRight 0.4s ease-out forwards',
-
-        // Icons
         slideInIconFromRight: 'slideInIconFromRight 0.3s ease-out forwards',
-
-        // NEW: Nav items soft drop
         softDrop: 'softDrop 0.4s ease-out forwards',
-
-        // Additional existing animations...
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'slide-up': 'slide-up 0.5s ease-out forwards',

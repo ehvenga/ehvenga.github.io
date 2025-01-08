@@ -12,7 +12,7 @@ const Hero: React.FC = () => {
     <div>
       <section className='text-2xl text-cyan-950 mt-32'>
         <h1 className='text-[3.25em] leading-[1.1em] tracking-wide animate-slide-up font-semibold'>
-          Profile
+          Work
           <span className='text-emerald-400'>.</span>
         </h1>
         <div

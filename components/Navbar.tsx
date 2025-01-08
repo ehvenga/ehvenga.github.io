@@ -22,12 +22,14 @@ interface LogoMenuButtonProps {
 
 interface SocialIconsProps {
   showIcons: boolean;
+  onIconsDone: () => void;
 }
 
 interface NavItemsListProps {
   navItems: { href: string; label: string; desc: string }[];
   handleMenuOpen: () => void;
   parent: React.Ref<HTMLUListElement>;
+  showItems: boolean;
 }
 
 // Component Definitions
@@ -74,12 +76,10 @@ const HireMeButton: React.FC = () => (
   </button>
 );
 
-/**
- * Social icons that only appear after the bar is completely done.
- * Each slides in from the right, with a staggered 0.2s delay.
- * They remain fully hidden until the moment they start moving.
- */
-const SocialIcons: React.FC<SocialIconsProps> = ({ showIcons }) => {
+const SocialIcons: React.FC<SocialIconsProps> = ({
+  showIcons,
+  onIconsDone,
+}) => {
   const icons = [
     {
       href: 'https://www.linkedin.com/in/ehvenga/',
@@ -107,19 +107,24 @@ const SocialIcons: React.FC<SocialIconsProps> = ({ showIcons }) => {
     <div className='flex items-center -translate-y-8 gap-x-10 overflow-hidden'>
       {icons.map((item, idx) => {
         // 0.2s increments for a slower, staggered sequence
-        const iconDelay = 0.2 * idx;
+        const iconDelay = 0.05 * idx;
+        const isLastIcon = idx === icons.length - 1;
 
         return (
           <Link href={item.href} key={idx}>
             <div
-              style={{
-                animationDelay: `${iconDelay}s`,
-              }}
+              style={{ animationDelay: `${iconDelay}s` }}
               className={
                 showIcons
                   ? 'animate-slideInIconFromRight opacity-0'
                   : 'opacity-0'
               }
+              onAnimationEnd={() => {
+                // Only fire on the LAST icon
+                if (isLastIcon) {
+                  onIconsDone();
+                }
+              }}
             >
               {item.icon}
             </div>
@@ -131,26 +136,33 @@ const SocialIcons: React.FC<SocialIconsProps> = ({ showIcons }) => {
 };
 
 /**
- * Nav items list: each item has a "softDrop" animation
- * with a slight incremental delay, so they appear
- * one-by-one in a gentle downward motion.
+ * Each <li> + desc is wrapped in a <span>, which uses:
+ *   - animate-softDrop
+ *   - a small inline style delay
+ * to achieve the staggered fade-in + drop.
+ * We only set the classes if `showItems` is true.
  */
 const NavItemsList: React.FC<NavItemsListProps> = ({
   navItems,
   handleMenuOpen,
   parent,
+  showItems,
 }) => (
   <ul ref={parent} className='flex gap-y-16 flex-col'>
     {navItems.map((item, index) => {
-      // 0.1s stagger per item
-      const dropDelay = 0.1 * index;
+      // 0.15s per item for a smooth stagger
+      const dropDelay = 0.15 * index;
 
       return (
         <span
           key={index}
           style={{ animationDelay: `${dropDelay}s` }}
-          // Start invisible so we can fade/drop in
-          className='animate-softDrop opacity-0 grid grid-cols-4 items-end'
+          className={
+            showItems
+              ? 'animate-softDrop opacity-0 grid grid-cols-4 items-end'
+              : // If showItems is false, keep them invisible
+                'opacity-0'
+          }
         >
           <li onClick={handleMenuOpen}>
             <Link className='col-start-1 hover:text-white' href={item.href}>
@@ -168,13 +180,15 @@ const NavItemsList: React.FC<NavItemsListProps> = ({
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [barDone, setBarDone] = useState(false); // track if bar is finished
+  const [barDone, setBarDone] = useState(false); // pink bar done animating
+  const [iconsDone, setIconsDone] = useState(false); // icons done animating
   const [parent] = useAutoAnimate<HTMLUListElement>();
 
   const handleMenuOpen = () => {
-    // When menu is closed, reset barDone so icons won't show next time
+    // Reset any "done" states whenever we close the menu
     if (menuOpen) {
       setBarDone(false);
+      setIconsDone(false);
     }
     setMenuOpen(!menuOpen);
   };
@@ -205,26 +219,26 @@ const Navbar: React.FC = () => {
         <LogoMenuButton menuOpen={menuOpen} handleMenuOpen={handleMenuOpen} />
         <HireMeButton />
 
-        {/* Main container for the bar + icons + nav items */}
         <div className='absolute mt-24 text-cyan-950 font-bold text-6xl w-full'>
           <div className='flex gap-x-10 items-center'>
-            {/* Pink bar: starts wide, ends thinner (0.4s) */}
             <div
               className={`border-b-4 border-rose-400 mt-3 mb-20 relative ${
                 menuOpen ? 'animate-slideInBarFromRight' : 'w-0 opacity-0'
               }`}
               onAnimationEnd={() => setBarDone(true)}
             ></div>
-
-            {/* Icons: only show (animate) after bar is done */}
-            <SocialIcons showIcons={menuOpen && barDone} />
+            <SocialIcons
+              showIcons={menuOpen && barDone}
+              onIconsDone={() => setIconsDone(true)}
+            />
           </div>
 
-          {/* NavItems each dropping in softly */}
+          {/* NavItems each dropping in softly AFTER icons have done */}
           <NavItemsList
             navItems={navItems}
             handleMenuOpen={handleMenuOpen}
             parent={parent}
+            showItems={menuOpen && barDone && iconsDone}
           />
         </div>
       </div>
