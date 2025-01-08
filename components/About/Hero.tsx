@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
   });
   return (
     <div className=''>
-      <section className='text-2xl text-cyan-950 mt-32'>
+      <section className='text-2xl text-red-950 mt-32'>
         <h1 className='text-[3.25em] leading-[1.1em] tracking-wide animate-slide-up font-semibold'>
           About me
           <span className='text-rose-400'>.</span>

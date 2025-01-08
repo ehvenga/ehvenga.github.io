@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
-import CustomLinkButton from './resuable/CustomLinkButton';
+import CustomLinkButton from './reusable/CustomLinkButton';
 
 interface ExperienceProps {
   company: string;
@@ -51,12 +51,27 @@ const Build: React.FC = () => {
         <CustomLinkButton
           href='profile'
           text='Find out more'
+          textColor=''
+          bgColor=''
+          borderColor=''
+          bgHoverColor=''
         ></CustomLinkButton>
         <CustomLinkButton
           href='projects'
           text='Look at my projects'
+          textColor=''
+          bgColor=''
+          borderColor=''
+          bgHoverColor=''
         ></CustomLinkButton>
-        <CustomLinkButton href='about' text='Get to know me'></CustomLinkButton>
+        <CustomLinkButton
+          href='about'
+          text='Get to know me'
+          textColor=''
+          bgColor=''
+          borderColor=''
+          bgHoverColor=''
+        ></CustomLinkButton>
       </div>
     </section>
   );

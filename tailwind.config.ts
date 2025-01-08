@@ -103,8 +103,6 @@ const config: Config = {
             opacity: '1',
           },
         },
-
-        // Additional existing keyframes...
         'accordion-down': {
           from: { height: '0' },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -199,7 +197,7 @@ const config: Config = {
       animation: {
         slideInBarFromRight: 'slideInBarFromRight 0.4s ease-out forwards',
         slideInIconFromRight: 'slideInIconFromRight 0.3s ease-out forwards',
-        softDrop: 'softDrop 0.4s ease-out forwards',
+        softDrop: 'softDrop 0.2s ease-out forwards',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'slide-up': 'slide-up 0.5s ease-out forwards',

@@ -44,6 +44,10 @@ const Logo: React.FC = () => (
   </Link>
 );
 
+/**
+ * MenuButton now has transition-[letter-spacing] for smoothing
+ * the hover from tracking-[0.25rem] to tracking-[0.3rem].
+ */
 const MenuButton: React.FC<MenuButtonProps> = ({
   menuOpen,
   handleMenuOpen,
@@ -52,7 +56,16 @@ const MenuButton: React.FC<MenuButtonProps> = ({
     onClick={handleMenuOpen}
     className='font-bold text-xs text-cyan-950 pl-2'
   >
-    <span className='tracking-[0.25rem] hover:tracking-[0.3rem] flex justify-center w-10'>
+    <span
+      className='
+        flex justify-center w-10
+        tracking-[0.25rem]
+        hover:tracking-[0.3rem]
+        transition-[letter-spacing]
+        duration-300
+        ease-in-out
+      '
+    >
       {menuOpen ? 'CLOSE' : 'MENU'}
     </span>
   </button>
@@ -70,8 +83,22 @@ const LogoMenuButton: React.FC<LogoMenuButtonProps> = ({
   </div>
 );
 
+/**
+ * Same approach for HireMeButton:
+ * tracking transitions smoothly on hover.
+ */
 const HireMeButton: React.FC = () => (
-  <button className='font-bold text-xs text-cyan-950 tracking-[0.25rem] hover:tracking-[0.3rem] w-24 flex justify-center'>
+  <button
+    className='
+      font-bold text-xs text-cyan-950
+      tracking-[0.25rem]
+      hover:tracking-[0.3rem]
+      transition-[letter-spacing]
+      duration-300
+      ease-in-out
+      w-24 flex justify-center
+    '
+  >
     HIRE ME
   </button>
 );
@@ -106,7 +133,7 @@ const SocialIcons: React.FC<SocialIconsProps> = ({
   return (
     <div className='flex items-center -translate-y-8 gap-x-10 overflow-hidden'>
       {icons.map((item, idx) => {
-        // 0.2s increments for a slower, staggered sequence
+        // 0.05s increments for a slower, staggered sequence
         const iconDelay = 0.05 * idx;
         const isLastIcon = idx === icons.length - 1;
 
@@ -120,7 +147,6 @@ const SocialIcons: React.FC<SocialIconsProps> = ({
                   : 'opacity-0'
               }
               onAnimationEnd={() => {
-                // Only fire on the LAST icon
                 if (isLastIcon) {
                   onIconsDone();
                 }
@@ -135,13 +161,6 @@ const SocialIcons: React.FC<SocialIconsProps> = ({
   );
 };
 
-/**
- * Each <li> + desc is wrapped in a <span>, which uses:
- *   - animate-softDrop
- *   - a small inline style delay
- * to achieve the staggered fade-in + drop.
- * We only set the classes if `showItems` is true.
- */
 const NavItemsList: React.FC<NavItemsListProps> = ({
   navItems,
   handleMenuOpen,
@@ -150,8 +169,7 @@ const NavItemsList: React.FC<NavItemsListProps> = ({
 }) => (
   <ul ref={parent} className='flex gap-y-16 flex-col'>
     {navItems.map((item, index) => {
-      // 0.15s per item for a smooth stagger
-      const dropDelay = 0.15 * index;
+      const dropDelay = 0.08 * index;
 
       return (
         <span
@@ -160,8 +178,7 @@ const NavItemsList: React.FC<NavItemsListProps> = ({
           className={
             showItems
               ? 'animate-softDrop opacity-0 grid grid-cols-4 items-end'
-              : // If showItems is false, keep them invisible
-                'opacity-0'
+              : 'opacity-0'
           }
         >
           <li onClick={handleMenuOpen}>
@@ -195,7 +212,11 @@ const Navbar: React.FC = () => {
 
   const navItems = [
     { href: '/', label: 'Home', desc: 'Go back to Home' },
-    { href: '/profile', label: 'Profile', desc: 'See my profile' },
+    {
+      href: '/work',
+      label: 'Work',
+      desc: 'My approach to development and analysis',
+    },
     {
       href: '/projects',
       label: 'Projects',
