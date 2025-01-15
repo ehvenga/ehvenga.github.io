@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
           I'm a <span className='font-semibold'>Full-Stack Developer</span>{' '}
           <br />
           and <span className='font-semibold'>Data Scientist</span> from
-          Illinois
+          Illinois.
         </h2>
       </section>
       <section className='mt-20 translate-x-40 '>
