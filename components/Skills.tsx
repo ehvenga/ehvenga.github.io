@@ -3,6 +3,78 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import CustomLinkButton from './reusable/CustomLinkButton';
+import CustomTags from './reusable/CustomTags';
+
+const skills = [
+  'Python',
+  'FastAPI',
+  'Django',
+  'REST APIs',
+  'WebSockets',
+  'Angular (15.0+)',
+  'React',
+  'JavaScript',
+  'TypeScript',
+  'NextJS',
+  'SQLAlchemy',
+  'Postgres',
+  'MySQL',
+  'Redux',
+  'Node.js',
+  'Express JS',
+  'Vue',
+  'Sveltekit',
+  'C#',
+  '.NET',
+  'ASP.NET',
+  'WebRTC',
+  'Local Storage',
+];
+
+const dataSkills = [
+  'Data Mining',
+  'Knowledge Discovery',
+  'Tableau',
+  'Classification',
+  'Regression',
+  'Neural Networks',
+  'Tensorflow',
+  'Pytorch',
+  'Rapidminer',
+  'Altair AIStudio',
+  'Tableau',
+  'Data Cleansing',
+  'Data Visualization',
+  'Pandas',
+  'Data Manipulation',
+  'Statistical Analysis',
+  'Microsoft Access',
+  'Jupyter Notebook',
+  'Hypothesis Testing',
+  'Prediction Performance',
+];
+
+const otherSkills = [
+  'Unit Testing (Jest)',
+  'Load Testing',
+  'Continuous Integration/Continuous Delivery (CI/CD)',
+  'Sentry',
+  'DevOps practices',
+  'Docker',
+  'AWS',
+  'Performance monitoring',
+  'Quality automation',
+  'Postgres',
+  'MySQL',
+  'NoSQL (MongoDB, Firebase)',
+  'Power BI',
+  'Database migrations',
+  'Agile Development (SCRUM)',
+  'Figma',
+  'Adobe Suite',
+  'Project Management',
+  'Cloud technologies',
+];
 
 const Skills: React.FC = () => {
   // Hook for the section header
@@ -17,7 +89,7 @@ const Skills: React.FC = () => {
   });
 
   return (
-    <section className='mt-28 mb-36 text-cyan-950'>
+    <section className='flex flex-col mt-28 mb-36 text-cyan-950'>
       <h3
         className={`heading text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
@@ -35,36 +107,53 @@ const Skills: React.FC = () => {
       ></div>
 
       <article className='text-lg w-[34em] mt-6 leading-relaxed'>
-        From innovative interactive webpages and scalable applications to
-        single-page apps and experimental 3D projects, I help teams Skills
-        ambitious yet accessible web experiences -{' '}
-        <span className='font-semibold'>the wilder, the better.</span>
+        Over the years of my education and professional experience I have
+        gathered useful skills for{' '}
+        <span className='font-semibold'>Software Development</span> and{' '}
+        <span className='font-semibold'>Data Science</span>
       </article>
-      <div className='flex gap-x-6'>
-        <CustomLinkButton
-          href='profile'
-          text='Find out more'
-          textColor=''
-          bgColor=''
-          borderColor=''
-          bgHoverColor=''
-        ></CustomLinkButton>
-        <CustomLinkButton
-          href='projects'
-          text='Look at my projects'
-          textColor=''
-          bgColor=''
-          borderColor=''
-          bgHoverColor=''
-        ></CustomLinkButton>
-        <CustomLinkButton
-          href='about'
-          text='Get to know me'
-          textColor=''
-          bgColor=''
-          borderColor=''
-          bgHoverColor=''
-        ></CustomLinkButton>
+      <h5 className='text-2xl mt-10 mb-6 font-semibold text-teal-700'>
+        Software Development
+      </h5>
+      <div className='flex flex-wrap gap-x-5 gap-y-5'>
+        {skills.map((skill, index) => (
+          <CustomTags
+            key={index}
+            text={skill}
+            textColor=''
+            bgColor=''
+            borderColor=''
+            bgHoverColor=''
+          />
+        ))}
+      </div>
+      <h5 className='text-2xl mt-10 mb-6 font-semibold text-teal-700'>
+        Data Science
+      </h5>
+      <div className='flex flex-wrap gap-x-5 gap-y-5'>
+        {dataSkills.map((skill, index) => (
+          <CustomTags
+            key={index}
+            text={skill}
+            textColor=''
+            bgColor=''
+            borderColor=''
+            bgHoverColor=''
+          />
+        ))}
+      </div>
+      <h5 className='text-2xl mt-10 mb-6 font-semibold text-teal-700'>Other</h5>
+      <div className='flex flex-wrap gap-x-5 gap-y-5'>
+        {otherSkills.map((skill, index) => (
+          <CustomTags
+            key={index}
+            text={skill}
+            textColor=''
+            bgColor=''
+            borderColor=''
+            bgHoverColor=''
+          />
+        ))}
       </div>
     </section>
   );
