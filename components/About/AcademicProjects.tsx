@@ -8,7 +8,7 @@ interface ExperienceProps {
   subject: string;
   title: string;
   responsibilities: string[];
-  link?: string;
+  link: string;
 }
 
 const academicProjectData: ExperienceProps[] = [
@@ -50,6 +50,7 @@ const academicProjectData: ExperienceProps[] = [
     responsibilities: [
       'Applied machine learning techniques to analyze the Google Play Store dataset, uncovering patterns in app performance and market trends.',
     ],
+    link: '',
   },
   {
     subject: 'Capstone Project - Manipal University of  Technology',
@@ -57,6 +58,7 @@ const academicProjectData: ExperienceProps[] = [
     responsibilities: [
       'Studied the effects of spheroidization and alloying elements on the machinability of medium carbon steel AISI 4340.',
     ],
+    link: '',
   },
 ];
 
