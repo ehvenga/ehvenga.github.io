@@ -34,6 +34,7 @@ const skills = [
 const dataSkills = [
   'Data Mining',
   'Knowledge Discovery',
+  'WEKA',
   'Tableau',
   'Classification',
   'Regression',

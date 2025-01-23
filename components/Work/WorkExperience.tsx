@@ -106,9 +106,10 @@ const WorkExperience: React.FC = () => {
         style={{ position: 'relative', right: 0 }}
       ></div>
 
-      <article className='text-lg w-[34em] mt-6 mb-12 leading-relaxed'>
-        Learn more about my experience and expertise in JavaScript, Python,
-        machine learning, and leading key projects.
+      <article className='text-lg w-[40em] mt-6 mb-12 leading-relaxed'>
+        4+ years of experience as a Full-Stack Developer skilled in Postgres,
+        SQL, JavaScript, Python, Django, and React. Runner-Up at the North
+        American IEOM Conference as a Graduate Research Student.
       </article>
 
       <div className='divide-solid divide-y-2 divide-emerald-200'>

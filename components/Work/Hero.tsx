@@ -23,14 +23,17 @@ const Hero: React.FC = () => {
           style={{ right: 0, position: 'relative' }}
         ></div>
         <h2 className='pt-6 animate-slide-up-secondary'>
-          I'm a{' '}
+          A forward thinking tech enthusiast who likes to design and <br />{' '}
+          build{' '}
           <span className='font-semibold leading-relaxed'>
-            developer, data scientist <span className='font-normal'>and</span>{' '}
-            designer{' '}
+            interactive, accessible websites{' '}
+            <span className='font-normal'>and</span> products.
           </span>{' '}
-          who has been building for <br /> the web in some capacity since 2015.
-          I specialize in accessibility, performance <br /> and usability
-          without sacrificing creativity.
+          <br />
+          Interested in building products and experiences <br /> that{' '}
+          <span className='font-semibold leading-relaxed'>
+            make the world a little bit brighter.
+          </span>
         </h2>
       </section>
       <section className='mt-20 translate-x-40 '>

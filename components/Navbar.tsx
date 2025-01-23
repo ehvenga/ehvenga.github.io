@@ -88,7 +88,7 @@ const LogoMenuButton: React.FC<LogoMenuButtonProps> = ({
  * tracking transitions smoothly on hover.
  */
 const HireMeButton: React.FC = () => (
-  <button
+  <Link
     className='
       font-bold text-xs text-cyan-950
       tracking-[0.25rem]
@@ -98,9 +98,11 @@ const HireMeButton: React.FC = () => (
       ease-in-out
       w-24 flex justify-center
     '
+    href='mailto:ehvenga@gmail.com?subject=Hello%20Hari'
+    target='_blank'
   >
     HIRE ME
-  </button>
+  </Link>
 );
 
 const SocialIcons: React.FC<SocialIconsProps> = ({

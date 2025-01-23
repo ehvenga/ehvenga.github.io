@@ -10,8 +10,8 @@ const Hero: React.FC = () => {
           <span className='text-teal-500'>.</span>
         </h1>
         <h2 className='pt-6 animate-slide-up-secondary'>
-          I'm a <span className='font-semibold'>Full-Stack Developer</span>{' '}
-          <br />
+          I'm a 🚀 blazing fast{' '}
+          <span className='font-semibold'>Web Developer</span> <br />
           and <span className='font-semibold'>Data Scientist</span> from
           Illinois.
         </h2>

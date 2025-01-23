@@ -15,14 +15,16 @@ const educationData: ExperienceProps[] = [
     company: 'Bradley University',
     role: 'Data Science & Analytics',
     responsibilities: [
-      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+      'Completed 30 credit hours with a final GPA of 3.70, including courses in Data Science, Machine Learning, and Engineering Analytics.',
+      'Served in leadership roles as Secretary for the Bradley Information Technology Students Club and Treasurer for the AI Club.',
     ],
   },
   {
     company: 'Manipal University of Technology',
     role: 'Mechanical Engineering',
     responsibilities: [
-      'Leading development efforts on various web applications using modern technologies.',
+      'Excelling in academics and intensive research projects like heat treatment experiments.',
+      'Led the Engines and Intake division for a university start-up, organized racing events, and developed software applications for campus use.',
     ],
   },
 ];
@@ -100,8 +102,9 @@ const Education: React.FC = () => {
       ></div>
 
       <article className='text-lg w-[34em] mt-6 mb-12 leading-relaxed'>
-        Learn more about my experience and expertise in JavaScript, Python,
-        machine learning, and leading key projects.
+        After I got my bachelors in Mechanical Engineering, I founded my own
+        start-up, which led me to dive into the interesting world of software
+        products and software engineering.
       </article>
 
       {/* Education items */}

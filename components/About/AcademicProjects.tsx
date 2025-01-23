@@ -16,14 +16,15 @@ const academicProjectData: ExperienceProps[] = [
     subject: 'Engineering Analytics Research - Bradley University',
     title: 'Backward-Compatible Modular Configuration',
     responsibilities: [
-      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+      'A dynamic programming approach to streamline system configurations, enhance collaboration, and reduce costs.',
     ],
+    link: 'https://github.com/ehvenga/interactive.modular.system.configuration.tool-django',
   },
   {
     subject: 'Machine Learning - Bradley University',
     title: 'Gemstones Prediction',
     responsibilities: [
-      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+      'Built with TensorFlow and Keras, the model utilizes a convolutional neural network (CNN) for accurate gemstone identification.',
     ],
     link: 'https://github.com/ehvenga/gemstones.prediction-tensorflow',
   },
@@ -31,7 +32,7 @@ const academicProjectData: ExperienceProps[] = [
     subject: 'Business Analytics - Bradley University',
     title: 'Travel Insurance Prediction',
     responsibilities: [
-      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+      'Developed predictive models to identify potential travel insurance buyers, enhancing targeted marketing and profitability through data-driven insights.',
     ],
     link: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
   },
@@ -39,15 +40,7 @@ const academicProjectData: ExperienceProps[] = [
     subject: 'Logistics & Supply Chain Systems - Bradley University',
     title: 'Revlon Hair Dryer BOM & Logistics Analysis',
     responsibilities: [
-      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
-    ],
-    link: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
-  },
-  {
-    subject: 'Data Visualization - Bradley University',
-    title: 'Chicago Crime Overview',
-    responsibilities: [
-      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+      'Optimized logistics and supply chain processes through BOM management, database creation, regression analysis, and product performance evaluation.',
     ],
     link: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
   },
@@ -55,14 +48,14 @@ const academicProjectData: ExperienceProps[] = [
     subject: 'Knowledge Discovery & Data Mining - Bradley University',
     title: 'Machine Learning Analysis of Play Store Apps',
     responsibilities: [
-      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+      'Applied machine learning techniques to analyze the Google Play Store dataset, uncovering patterns in app performance and market trends.',
     ],
   },
   {
     subject: 'Capstone Project - Manipal University of  Technology',
     title: 'Spheroidization Heat Treatment',
     responsibilities: [
-      'Leading development efforts on various web applications using modern technologies.',
+      'Studied the effects of spheroidization and alloying elements on the machinability of medium carbon steel AISI 4340.',
     ],
   },
 ];
@@ -71,6 +64,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   subject,
   title,
   responsibilities,
+  link,
 }) => {
   // Each ExperienceItem uses its own intersection observer to animate
   const { ref, inView } = useInView({
@@ -90,27 +84,27 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
           <span className='text-rose-400'>.</span>
         </h5>
         {responsibilities.map((text, index) => (
-          <div>
-            <article
-              key={index}
-              className={`text-lg w-[38em] mt-6 leading-relaxed transition-opacity duration-1000 ${
-                inView ? 'opacity-100' : 'opacity-10'
-              }`}
-            >
-              {text}
-            </article>
-            <div className='mt-10'>
-              <CustomLinkButton
-                href='profile'
-                text='Find out more'
-                textColor='text-rose-500'
-                bgColor='bg-rose-100'
-                borderColor='border-rose-500'
-                bgHoverColor='[background-color:#FFF1F2]'
-              />
-            </div>
-          </div>
+          <article
+            key={index}
+            className={`text-lg w-[38em] mt-6 leading-relaxed transition-opacity duration-1000 ${
+              inView ? 'opacity-100' : 'opacity-10'
+            }`}
+          >
+            {text}
+          </article>
         ))}
+        {link && (
+          <div className='mt-10'>
+            <CustomLinkButton
+              href={link}
+              text='Find out more'
+              textColor='text-rose-500'
+              bgColor='bg-rose-100'
+              borderColor='border-rose-500'
+              bgHoverColor='[background-color:#FFF1F2]'
+            />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -153,8 +147,8 @@ const AcademicProjects: React.FC = () => {
       />
       {/* Intro description */}
       <article className='text-lg w-[34em] mt-6 mb-12 leading-relaxed'>
-        Learn more about my experience and expertise in JavaScript, Python,
-        machine learning, and leading key projects.
+        Below are the academic projects that helped me develop the necessary
+        skills to succeed in my academics and professional life.
       </article>
       {/* Academic projects listing */}
       <div className='divide-solid divide-y-2 divide-rose-200'>
