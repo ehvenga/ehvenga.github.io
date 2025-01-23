@@ -1,18 +1,34 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
-import CustomLinkButton from './reusable/CustomLinkButton';
 
-interface ExperienceProps {
-  company: string;
-  role: string;
-  responsibilities: string[];
+interface Achievement {
+  description: string;
+  position?: string;
+  location?: string;
+  date: string;
 }
 
+const AchievementItem: React.FC<Achievement> = ({
+  description,
+  position,
+  location,
+  date,
+}) => (
+  <li className='flex justify-between py-2 cursor-default hover:font-semibold transition-all duration-150'>
+    <div className='flex flex-col'>
+      <span className='text-xl text-teal-900'>{description}</span>
+      <span className='text-md text-teal-700'>
+        {position}, {location}
+      </span>
+    </div>
+    <span className='text-xl text-teal-900'>{date}</span>
+  </li>
+);
+
 const Achievements: React.FC = () => {
-  // Hook for the section header
+  // Hook for section header animation
   const { ref: headerRef, inView: headerInView } = useInView({
     triggerOnce: true,
     threshold: 0.5,
@@ -23,6 +39,42 @@ const Achievements: React.FC = () => {
     threshold: 0.5,
   });
 
+  const achievements: Achievement[] = [
+    {
+      description:
+        'AI Planners and Domain Experts in Modular Product Design, IISE Annual Conference',
+      position: 'Co-Author',
+      location: 'Georgia, USA',
+      date: 'Jun 2025',
+    },
+    {
+      description: 'North American Conference, IEOM Society',
+      position: 'Runner-up',
+      location: 'Washington DC, USA',
+      date: 'Jun 2024',
+    },
+    {
+      description:
+        'Big Idea Competition, Turner School of Entrepreneurship and Innovation',
+      position: 'Finalist',
+      location: 'Peoria IL, USA',
+      date: 'Apr 2024',
+    },
+    {
+      description:
+        'Certificate of Appreciation for Outstanding Contributions, LEO1',
+      location: 'Mumbai, India',
+      position: 'Web Developer',
+      date: 'Aug 2023',
+    },
+    {
+      description: 'Outstanding Contributions Award, Financepeer',
+      position: 'Web Developer',
+      location: 'Mumbai, India',
+      date: 'Dec 2022',
+    },
+  ];
+
   return (
     <section className='mt-28 mb-36 text-teal-950'>
       <h3
@@ -31,7 +83,7 @@ const Achievements: React.FC = () => {
         }`}
         ref={headerRef}
       >
-        Recent Achievements<span className='text-teal-500'>.</span>{' '}
+        Recent Achievements<span className='text-teal-500'>.</span>
         <div className='pl-2 group-hover:motion-preset-confetti cursor-default'>
           🏆
         </div>
@@ -43,85 +95,11 @@ const Achievements: React.FC = () => {
         ref={borderRef}
         style={{ right: 0, position: 'relative' }}
       ></div>
-
-      {/* <article className='text-lg w-[34em] mt-6 leading-relaxed'>
-        From innovative interactive webpages and scalable applications to
-        single-page apps and experimental 3D projects, I help teams Achievements
-        ambitious yet accessible web experiences -{' '}
-        <span className='font-semibold'>the wilder, the better.</span>
-      </article> */}
       <div>
-        <ul className='flex flex-col gap-y-1 list-disc text-lg'>
-          <li className='flex justify-between transition duration-300 hover:scale-[1.01] cursor-default'>
-            <span>
-              AI Planners and Domain Experts in Modular Product Design, IISE
-              Annual Conference, Georgia,{' '}
-              <span className='font-semibold'>Co-Author</span>
-            </span>
-            <span className='font-semibold'>Jun 2025</span>
-          </li>
-          <li className='flex justify-between transition duration-300 hover:scale-[1.01] cursor-default'>
-            <span>
-              North American Conference, IEOM Society, Washington DC,{' '}
-              <span className='font-semibold'>Runner-up</span>
-            </span>
-            <span className='font-semibold'>Jun 2024</span>
-          </li>
-          <li className='flex justify-between transition duration-300 hover:scale-[1.01] cursor-default'>
-            <span>
-              LEO1 Certificate of Appreciation for Outstanding Contributions,
-              Mumbai, India
-            </span>
-            <span className='font-semibold'>Aug 2023</span>
-          </li>
-          <li className='flex justify-between transition duration-300 hover:scale-[1.01] cursor-default'>
-            <span>
-              Financepeer Outstanding Contributions Award, Mumbai, India
-            </span>
-            <span className='font-semibold'>Dec 2022</span>
-          </li>
-          {/* <li className='flex justify-between'>
-            <span>
-              HackerRank Problem Solving Basics/Intermediate Certificate, India
-            </span>
-            <span className='font-semibold'>Dec 2022</span>
-          </li>
-          <li className='flex justify-between'>
-            <span>
-              HackerRank JavaScript Basics/Intermediate Certificate, India
-            </span>
-            <span className='font-semibold'>Dec 2022</span>
-          </li>
-          <li className='flex justify-between'>
-            <span>
-              HackerRank Python Basics/Intermediate Certificate, India
-            </span>
-            <span className='font-semibold'>Dec 2022</span>
-          </li>
-          <li className='flex justify-between'>
-            <span>
-              Full Stack Developer Certificate, ATTAINU, Bangalore, India
-            </span>
-            <span className='font-semibold'>Dec 2021</span>
-          </li>
-          <li className='flex justify-between'>
-            <span>
-              Biomedical Engineering Society of India Startup Pitch Fest,
-              Runner-up, Manipal, India
-            </span>
-            <span className='font-semibold'>Nov 2020 - Aug 2021</span>
-          </li>
-          <li className='flex justify-between'>
-            <span>
-              Techtatva Technical Fest Remote All Terrain Crawler, Second
-              Runner-up, Manipal, India
-            </span>
-            <span className='font-semibold'>Nov 2016</span>
-          </li>
-          <li className='flex justify-between'>
-            <span>PERSONAL PROJECTS</span>
-            <span className='font-semibold'>Mar 2014</span>
-          </li> */}
+        <ul className='flex flex-col mt-12 gap-y-4 list-disc text-lg'>
+          {achievements.map((achievement, index) => (
+            <AchievementItem key={index} {...achievement} />
+          ))}
         </ul>
       </div>
     </section>
