@@ -95,7 +95,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
             {text}
           </article>
         ))}
-        {link && (
+        {link != '' && (
           <div className='mt-10'>
             <CustomLinkButton
               href={link}
