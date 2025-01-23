@@ -12,6 +12,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@radix-ui/react-switch": "^1.0.3",
     "class-variance-authority": "^0.7.0",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.2.11",
     "lucide-react": "^0.395.0",
