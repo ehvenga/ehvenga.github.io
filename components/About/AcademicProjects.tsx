@@ -5,29 +5,62 @@ import { useInView } from 'react-intersection-observer';
 import CustomLinkButton from '../reusable/CustomLinkButton';
 
 interface ExperienceProps {
-  company: string;
-  role: string;
+  subject: string;
+  title: string;
   responsibilities: string[];
+  link?: string;
 }
 
 const academicProjectData: ExperienceProps[] = [
   {
-    company: 'Bradley University',
-    role: 'Data Science & Analytics',
+    subject: 'Engineering Analytics Research - Bradley University',
+    title: 'Backward-Compatible Modular Configuration',
     responsibilities: [
       'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
     ],
   },
   {
-    company: 'Manipal University of  Technology',
-    role: 'Mechanical Engineering',
+    subject: 'Machine Learning - Bradley University',
+    title: 'Gemstones Prediction',
     responsibilities: [
-      'Leading development efforts on various web applications using modern technologies.',
+      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+    ],
+    link: 'https://github.com/ehvenga/gemstones.prediction-tensorflow',
+  },
+  {
+    subject: 'Business Analytics - Bradley University',
+    title: 'Travel Insurance Prediction',
+    responsibilities: [
+      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+    ],
+    link: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
+  },
+  {
+    subject: 'Logistics & Supply Chain Systems - Bradley University',
+    title: 'Revlon Hair Dryer BOM & Logistics Analysis',
+    responsibilities: [
+      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+    ],
+    link: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
+  },
+  {
+    subject: 'Data Visualization - Bradley University',
+    title: 'Chicago Crime Overview',
+    responsibilities: [
+      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
+    ],
+    link: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
+  },
+  {
+    subject: 'Knowledge Discovery & Data Mining - Bradley University',
+    title: 'Machine Learning Analysis of Play Store Apps',
+    responsibilities: [
+      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
     ],
   },
   {
-    company: 'Manipal University of  Technology',
-    role: 'Mechanical Engineering',
+    subject: 'Capstone Project - Manipal University of  Technology',
+    title: 'Spheroidization Heat Treatment',
     responsibilities: [
       'Leading development efforts on various web applications using modern technologies.',
     ],
@@ -35,8 +68,8 @@ const academicProjectData: ExperienceProps[] = [
 ];
 
 const ExperienceItem: React.FC<ExperienceProps> = ({
-  company,
-  role,
+  subject,
+  title,
   responsibilities,
 }) => {
   // Each ExperienceItem uses its own intersection observer to animate
@@ -48,34 +81,36 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   return (
     <div className='flex justify-end mb-16' ref={ref}>
       <div className='mt-16'>
-        <h4 className='text-4xl font-semibold'>
-          {company}
+        <h4 className='text-3xl font-semibold'>
+          {title}
           <span className='text-rose-400'>.</span>
         </h4>
         <h5 className='text-2xl font-semibold text-rose-800'>
-          {role}
+          {subject}
           <span className='text-rose-400'>.</span>
         </h5>
         {responsibilities.map((text, index) => (
-          <article
-            key={index}
-            className={`text-lg w-[34em] mt-6 leading-relaxed transition-opacity duration-1000 ${
-              inView ? 'opacity-100' : 'opacity-10'
-            }`}
-          >
-            {text}
-          </article>
+          <div>
+            <article
+              key={index}
+              className={`text-lg w-[38em] mt-6 leading-relaxed transition-opacity duration-1000 ${
+                inView ? 'opacity-100' : 'opacity-10'
+              }`}
+            >
+              {text}
+            </article>
+            <div className='mt-10'>
+              <CustomLinkButton
+                href='profile'
+                text='Find out more'
+                textColor='text-rose-500'
+                bgColor='bg-rose-100'
+                borderColor='border-rose-500'
+                bgHoverColor='[background-color:#FFF1F2]'
+              />
+            </div>
+          </div>
         ))}
-        <div className='mt-10'>
-          <CustomLinkButton
-            href='profile'
-            text='Find out more'
-            textColor='text-rose-500'
-            bgColor='bg-rose-100'
-            borderColor='border-rose-500'
-            bgHoverColor='[background-color:#FFF1F2]'
-          />
-        </div>
       </div>
     </div>
   );
@@ -99,11 +134,14 @@ const AcademicProjects: React.FC = () => {
       {/* Animated heading */}
       <h3
         ref={headerRef}
-        className={`heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        Academic Projects<span className='text-rose-400'>.</span>
+        Academic Projects<span className='text-rose-400'>.</span>{' '}
+        <div className='pl-2 group-hover:motion-preset-confetti cursor-default'>
+          📝
+        </div>
       </h3>
       {/* Animated border */}
       <div

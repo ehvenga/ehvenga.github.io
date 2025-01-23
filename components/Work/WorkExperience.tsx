@@ -13,6 +13,7 @@ interface ExperienceProps {
   linkHref: string;
   src: string;
   alt: string;
+  isButtonPresent: boolean;
 }
 
 const experiences: ExperienceProps[] = [
@@ -24,9 +25,11 @@ const experiences: ExperienceProps[] = [
       'I have worked on the algorithms, front-end and back-end systems for the backward compatible modular system design.',
     ],
     buttonText: 'Visit Github',
-    linkHref: 'https://github.com/YourRepoHere',
+    linkHref:
+      'https://github.com/ehvenga/interactive.approach.to.backward.compatible.modular.system.configuration',
     src: '/bu-logo.png',
     alt: 'Bradley University Logo',
+    isButtonPresent: true,
   },
   {
     company: 'LEO1',
@@ -35,10 +38,11 @@ const experiences: ExperienceProps[] = [
       'Leading development efforts on various web applications using modern technologies.',
       'Focusing on user experience, responsive design, and front-end performance.',
     ],
-    buttonText: 'Visit Live Website',
+    buttonText: 'Visit Website',
     linkHref: 'https://leo1.com',
     src: '/leo1-logo.png',
     alt: 'LEO1 Logo',
+    isButtonPresent: true,
   },
   {
     company: 'Axis Nodes',
@@ -51,6 +55,7 @@ const experiences: ExperienceProps[] = [
     linkHref: 'https://github.com/AnotherRepoHere',
     src: '/axis-nodes-logo.png',
     alt: 'Axis Nodes Logo',
+    isButtonPresent: false,
   },
   {
     company: 'Infispot',
@@ -63,6 +68,7 @@ const experiences: ExperienceProps[] = [
     linkHref: 'https://infispot.com',
     src: '/infiale-logo.png',
     alt: 'Infispot Logo',
+    isButtonPresent: false,
   },
 ];
 
@@ -82,11 +88,14 @@ const WorkExperience: React.FC = () => {
     <section className='mt-28 text-cyan-950'>
       <h3
         ref={headerRef}
-        className={`heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        Work Experience<span className='text-emerald-500'>.</span>
+        Work Experience<span className='text-emerald-500'>.</span>{' '}
+        <div className='pl-2 group-hover:motion-preset-confetti cursor-default'>
+          💼
+        </div>
       </h3>
 
       <div
@@ -119,6 +128,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   linkHref,
   src,
   alt,
+  isButtonPresent,
 }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -153,16 +163,18 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
             {text}
           </article>
         ))}
-        <div className='mt-10'>
-          <CustomLinkButton
-            href={linkHref}
-            text={buttonText}
-            textColor='text-emerald-600'
-            bgColor='bg-emerald-100'
-            borderColor='border-emerald-700'
-            bgHoverColor='bg-emerald-600'
-          />
-        </div>
+        {isButtonPresent && (
+          <div className='mt-10'>
+            <CustomLinkButton
+              href={linkHref}
+              text={buttonText}
+              textColor='text-emerald-600'
+              bgColor='bg-emerald-100'
+              borderColor='border-emerald-700'
+              bgHoverColor='bg-emerald-600'
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -26,12 +26,15 @@ const Build: React.FC = () => {
   return (
     <section className='mt-28 mb-36 text-cyan-950'>
       <h3
-        className={`heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
         ref={headerRef}
       >
-        Let's Build Together<span className='text-teal-500'>.</span>
+        Let's Build Together<span className='text-teal-500'>.</span>{' '}
+        <div className='pl-2 group-hover:motion-preset-confetti cursor-default'>
+          🤝
+        </div>
       </h3>
       <div
         className={`border-b-4 border-teal-500 my-5 transition-all ${

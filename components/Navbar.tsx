@@ -110,23 +110,23 @@ const SocialIcons: React.FC<SocialIconsProps> = ({
   const icons = [
     {
       href: 'https://www.linkedin.com/in/ehvenga/',
-      icon: <FaLinkedin className='w-6 h-6 hover:text-white' />,
+      icon: <FaLinkedin className='w-6 h-6 hover:text-rose-700' />,
     },
     {
       href: 'https://github.com/ehvenga',
-      icon: <FaGithub className='w-6 h-6 hover:text-white' />,
+      icon: <FaGithub className='w-6 h-6 hover:text-rose-700' />,
     },
     {
       href: 'mailto:ehvenga@gmail.com?subject=Hello%20Hari',
-      icon: <MdEmail className='w-6 h-6 hover:text-white' />,
+      icon: <MdEmail className='w-6 h-6 hover:text-rose-700' />,
     },
     {
       href: 'https://www.npmjs.com/~ehvenga',
-      icon: <FaNpm className='w-6 h-6 hover:text-white' />,
+      icon: <FaNpm className='w-6 h-6 hover:text-rose-700' />,
     },
     {
       href: 'https://www.npmjs.com/~ehvenga',
-      icon: <IoShareSocial className='w-6 h-6 hover:text-white' />,
+      icon: <IoShareSocial className='w-6 h-6 hover:text-rose-700' />,
     },
   ];
 
@@ -177,16 +177,19 @@ const NavItemsList: React.FC<NavItemsListProps> = ({
           style={{ animationDelay: `${dropDelay}s` }}
           className={
             showItems
-              ? 'animate-softDrop opacity-0 grid grid-cols-4 items-end'
+              ? 'animate-softDrop opacity-0 grid grid-cols-4 items-end group'
               : 'opacity-0'
           }
         >
           <li onClick={handleMenuOpen}>
-            <Link className='col-start-1 hover:text-white' href={item.href}>
+            <Link
+              className='col-start-1 transition-all duration-200 group-hover:text-rose-700 text-rose-950'
+              href={item.href}
+            >
               {item.label}
             </Link>
           </li>
-          <span className='text-base font-medium col-start-2 text-cyan-950'>
+          <span className='text-base font-medium col-start-2 text-rose-950 group-hover:text-rose-700'>
             {item.desc}
           </span>
         </span>

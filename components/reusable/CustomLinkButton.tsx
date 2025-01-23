@@ -3,7 +3,7 @@ import React from 'react';
 
 interface CustomLinkButtonProps {
   text: string;
-  href: string;
+  href: string | null;
   textColor: string;
   borderColor: string;
   bgColor: string;

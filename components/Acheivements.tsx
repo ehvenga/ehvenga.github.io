@@ -26,12 +26,15 @@ const Achievements: React.FC = () => {
   return (
     <section className='mt-28 mb-36 text-teal-950'>
       <h3
-        className={`heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group heading text-6xl font-semibold transition-opacity duration-1000 flex ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
         ref={headerRef}
       >
-        Recent Achievements<span className='text-teal-500'>.</span>
+        Recent Achievements<span className='text-teal-500'>.</span>{' '}
+        <div className='pl-2 group-hover:motion-preset-confetti cursor-default'>
+          🏆
+        </div>
       </h3>
       <div
         className={`border-b-4 border-teal-500 my-5 transition-all ${
@@ -59,7 +62,8 @@ const Achievements: React.FC = () => {
           </li>
           <li className='flex justify-between transition duration-300 hover:scale-[1.01] cursor-default'>
             <span>
-              North American Conference, IEOM Society, Washington DC, Runner-up
+              North American Conference, IEOM Society, Washington DC,{' '}
+              <span className='font-semibold'>Runner-up</span>
             </span>
             <span className='font-semibold'>Jun 2024</span>
           </li>

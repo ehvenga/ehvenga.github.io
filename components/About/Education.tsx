@@ -81,11 +81,14 @@ const Education: React.FC = () => {
       {/* Animated heading */}
       <h3
         ref={headerRef}
-        className={`heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        Education<span className='text-rose-400'>.</span>
+        Education<span className='text-rose-400'>.</span>{' '}
+        <div className='pl-2 group-hover:motion-preset-confetti cursor-default'>
+          🎓
+        </div>
       </h3>
       {/* Animated border */}
       <div

@@ -22,7 +22,7 @@ const CustomTags: React.FC<CustomTagsProps> = ({
     <div
       className={`relative px-6 py-2 text-lg font-semibold ${
         textColor || 'text-indigo-500'
-      } group hover:motion-preset-confetti`}
+      } group hover:motion-scale-loop-[105%]`}
     >
       <span
         className={`absolute rounded-full inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-1.5 -translate-y-1.5 ${
