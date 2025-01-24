@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import CustomLinkButton from './reusable/CustomLinkButton';
-import CustomTags from './reusable/CustomTags';
+import CustomLinkButton from '../reusable/CustomLinkButton';
+import CustomTags from '../reusable/CustomTags';
 
 const skills = [
   'JavaScript',

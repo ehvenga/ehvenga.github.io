@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
-import CustomLinkButton from './reusable/CustomLinkButton';
+import CustomLinkButton from '../reusable/CustomLinkButton';
 
 interface ExperienceProps {
   company: string;

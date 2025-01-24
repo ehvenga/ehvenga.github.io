@@ -1,9 +1,8 @@
-import Image from 'next/image';
-import Hero from '@/components/Hero';
-import Build from '@/components/Build';
+import Hero from '@/components/Landing/Hero';
+import Build from '@/components/Landing/Build';
+import Skills from '@/components/Landing/Skills';
+import Achievements from '@/components/Landing/Achievements';
 import type { NextPage } from 'next';
-import Skills from '@/components/Skills';
-import Achievements from '@/components/Acheivements';
 
 const Home: NextPage = () => {
   return (
