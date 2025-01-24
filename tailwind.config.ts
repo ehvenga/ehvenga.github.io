@@ -1,6 +1,13 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  safelist: [
+    'text-teal-900',
+    'text-cyan-900',
+    'text-orange-900',
+    'text-rose-900',
+    'text-violet-900',
+  ],
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',

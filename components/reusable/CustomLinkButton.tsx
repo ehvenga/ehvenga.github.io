@@ -23,7 +23,7 @@ const CustomLinkButton: React.FC<CustomLinkButtonProps> = ({
       href={href}
       className={`relative px-8 py-3 text-lg font-semibold ${
         textColor || 'text-indigo-500'
-      } group transition duration-300 hover:scale-[1.02] mt-10`}
+      } group transition-transform duration-300 hover:scale-[1.02] mt-10 inline-block`}
     >
       <span
         className={`absolute rounded-lg inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-1.5 -translate-y-1.5 ${
