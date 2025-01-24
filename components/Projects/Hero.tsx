@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
             designer{' '}
           </span>{' '}
           who has been building for <br /> the web in some capacity since 2015.
-          I specialize in accessibility, performance <br /> and usability
+          I specialize in accessibility, performance <br /> and scalability
           without sacrificing creativity.
         </h2>
       </section>

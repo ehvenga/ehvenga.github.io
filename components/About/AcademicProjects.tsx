@@ -3,12 +3,15 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import CustomLinkButton from '../reusable/CustomLinkButton';
+import Image from 'next/image';
 
 interface ExperienceProps {
   subject: string;
   title: string;
   responsibilities: string[];
   link: string;
+  src: string;
+  alt: string;
 }
 
 const academicProjectData: ExperienceProps[] = [
@@ -19,6 +22,8 @@ const academicProjectData: ExperienceProps[] = [
       'A dynamic programming approach to streamline system configurations, enhance collaboration, and reduce costs.',
     ],
     link: 'https://github.com/ehvenga/interactive.modular.system.configuration.tool-django',
+    src: 'ap-1.png',
+    alt: 'backward compatibility image',
   },
   {
     subject: 'Machine Learning - Bradley University',
@@ -27,6 +32,8 @@ const academicProjectData: ExperienceProps[] = [
       'Built with TensorFlow and Keras, the model utilizes a convolutional neural network (CNN) for accurate gemstone identification.',
     ],
     link: 'https://github.com/ehvenga/gemstones.prediction-tensorflow',
+    src: 'ap-2.png',
+    alt: 'gemstones image',
   },
   {
     subject: 'Business Analytics - Bradley University',
@@ -35,6 +42,8 @@ const academicProjectData: ExperienceProps[] = [
       'Developed predictive models to identify potential travel insurance buyers, enhancing targeted marketing and profitability through data-driven insights.',
     ],
     link: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
+    src: 'ap-3.png',
+    alt: 'plane image',
   },
   {
     subject: 'Logistics & Supply Chain Systems - Bradley University',
@@ -43,6 +52,8 @@ const academicProjectData: ExperienceProps[] = [
       'Optimized logistics and supply chain processes through BOM management, database creation, regression analysis, and product performance evaluation.',
     ],
     link: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
+    src: 'ap-4.png',
+    alt: 'hair dryer image',
   },
   {
     subject: 'Knowledge Discovery & Data Mining - Bradley University',
@@ -51,6 +62,8 @@ const academicProjectData: ExperienceProps[] = [
       'Applied machine learning techniques to analyze the Google Play Store dataset, uncovering patterns in app performance and market trends.',
     ],
     link: '',
+    src: 'ap-5.png',
+    alt: 'mobile applications image',
   },
   {
     subject: 'Capstone Project - Manipal University of  Technology',
@@ -59,6 +72,8 @@ const academicProjectData: ExperienceProps[] = [
       'Studied the effects of spheroidization and alloying elements on the machinability of medium carbon steel AISI 4340.',
     ],
     link: '',
+    src: 'ap-6.png',
+    alt: 'heat treatment image',
   },
 ];
 
@@ -67,6 +82,8 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   title,
   responsibilities,
   link,
+  src,
+  alt,
 }) => {
   // Each ExperienceItem uses its own intersection observer to animate
   const { ref, inView } = useInView({
@@ -75,7 +92,14 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   });
 
   return (
-    <div className='flex justify-end mb-16' ref={ref}>
+    <div className='flex items-center justify-end mb-16' ref={ref}>
+      <Image
+        src={src}
+        width={300}
+        height={100}
+        alt={alt}
+        className='mr-32 mt-2 scale-75'
+      />
       <div className='mt-16'>
         <h4 className='text-3xl font-semibold'>
           {title}
@@ -96,7 +120,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
           </article>
         ))}
         {link != '' && (
-          <div className='mt-10'>
+          <div className='mt-2'>
             <CustomLinkButton
               href={link}
               text='Find out more'

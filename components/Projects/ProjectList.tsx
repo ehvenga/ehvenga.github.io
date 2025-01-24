@@ -114,14 +114,14 @@ const Experience: React.FC<ExperienceProps> = ({
           {title}
           <span className='text-orange-400'>.</span>
         </h4>
-        <h5 className='text-xl font-semibold text-orange-600'>
+        <h5 className='text-xl font-semibold text-orange-600 mb-8'>
           {tags}
           <span className='text-orange-400'>.</span>
         </h5>
         {description.map((text, index) => (
           <article
             key={index}
-            className={`text-lg w-[34em] mt-6 leading-relaxed transition-opacity duration-1000 ${
+            className={`text-lg w-[34em] mt-4 leading-relaxed transition-opacity duration-1000 ${
               inView ? 'opacity-100' : 'opacity-10'
             }`}
           >
@@ -129,7 +129,7 @@ const Experience: React.FC<ExperienceProps> = ({
           </article>
         ))}
         {url && (
-          <div className='mt-10'>
+          <div className='mt-2'>
             <CustomLinkButton
               href={url}
               text={buttonText}

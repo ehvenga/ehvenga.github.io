@@ -2,11 +2,14 @@
 
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
+import Image from 'next/image';
 
 interface ExperienceProps {
   company: string;
   role: string;
   responsibilities: string[];
+  src: string;
+  alt: string;
 }
 
 // Centralized data for easier updates and maintenance
@@ -18,6 +21,8 @@ const educationData: ExperienceProps[] = [
       'Completed 30 credit hours with a final GPA of 3.70, including courses in Data Science, Machine Learning, and Engineering Analytics.',
       'Served in leadership roles as Secretary for the Bradley Information Technology Students Club and Treasurer for the AI Club.',
     ],
+    src: '/bu-logo.png',
+    alt: 'Bradley University Logo',
   },
   {
     company: 'Manipal University of Technology',
@@ -26,6 +31,8 @@ const educationData: ExperienceProps[] = [
       'Excelling in academics and intensive research projects like heat treatment experiments.',
       'Led the Engines and Intake division for a university start-up, organized racing events, and developed software applications for campus use.',
     ],
+    src: '/mit-logo.png',
+    alt: 'Bradley University Logo',
   },
 ];
 
@@ -34,6 +41,8 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   company,
   role,
   responsibilities,
+  src,
+  alt,
 }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -41,8 +50,15 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   });
 
   return (
-    <div className='flex justify-end mb-16' ref={ref}>
-      <div className='mt-16'>
+    <div className='flex justify-end items-center mb-6' ref={ref}>
+      <Image
+        src={src}
+        width={400}
+        height={200}
+        alt={alt}
+        className='mr-32 mt-2 scale-90'
+      />
+      <div className='mt-10'>
         <h4 className='text-4xl font-semibold'>
           {company}
           <span className='text-rose-400'>.</span>
@@ -102,13 +118,13 @@ const Education: React.FC = () => {
       ></div>
 
       <article className='text-lg w-[34em] mt-6 mb-12 leading-relaxed'>
-        After I got my bachelors in Mechanical Engineering, I founded my own
-        start-up, which led me to dive into the interesting world of software
-        products and software engineering.
+        Naturally adept with technology, I pursued a Bachelor’s in Mechanical
+        Engineering and later specialized in Data Science & Analytics for my
+        Master’s to tackle new challenges.
       </article>
 
       {/* Education items */}
-      <div className='divide-solid divide-y-2 divide-rose-200'>
+      <div className='divide-solid divide-y-2 divide-rose-200 mt-12 mb-16'>
         {educationData.map((exp, idx) => (
           <ExperienceItem key={idx} {...exp} />
         ))}

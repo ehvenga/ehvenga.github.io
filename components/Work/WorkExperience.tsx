@@ -21,8 +21,8 @@ const experiences: ExperienceProps[] = [
     company: 'Bradley University',
     role: 'Graduate Research Student',
     responsibilities: [
-      'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
-      'I have worked on the algorithms, front-end and back-end systems for the backward compatible modular system design.',
+      'Researched Modular System Configurations under Dr. John Yoo, leveraging tree-based and DP-based algorithms.',
+      'Designed and implemented front-end, back-end, and database systems, achieving automated configuration of over 3,000 parts while ensuring system optimality.',
     ],
     buttonText: 'Visit Github',
     linkHref:
@@ -35,8 +35,9 @@ const experiences: ExperienceProps[] = [
     company: 'LEO1',
     role: 'Full-Stack Developer',
     responsibilities: [
-      'Leading development efforts on various web applications using modern technologies.',
-      'Focusing on user experience, responsive design, and front-end performance.',
+      'Led development efforts on various web applications using modern technologies handling around 300,000 users.',
+      'Architected a microservices-based system using, ensuring scalability and modularity for real-time loan automation.',
+      'Collaborated with cross-functional teams, integrated CI/CD pipelines, and deliver an eCommerce platform.',
     ],
     buttonText: 'Visit Website',
     linkHref: 'https://leo1.com',
@@ -48,8 +49,8 @@ const experiences: ExperienceProps[] = [
     company: 'Axis Nodes',
     role: 'Full-Stack Developer',
     responsibilities: [
-      'Contributing to both front-end and back-end development for dynamic client projects.',
-      'Ensuring scalability and performance of web applications.',
+      'Architected and developed a web application, integrating cross-platform authentication, server-side rendering, and a serverless backend system.',
+      'Collaborated on customer-facing features and integrated third-party services, supporting over 100,000 users.',
     ],
     buttonText: 'View Github',
     linkHref: 'https://github.com/AnotherRepoHere',
@@ -61,8 +62,8 @@ const experiences: ExperienceProps[] = [
     company: 'Infispot',
     role: 'Founder, Software Engineer, Product Manager',
     responsibilities: [
-      'Overseeing all phases of software development from conception to deployment.',
-      'Managing product development timelines and coordinating with cross-functional teams.',
+      'Led the design and development of applications, managing the product lifecycle from concept to launch.',
+      'Coordinated technical teams and content creators across South India, ensuring seamless collaboration and timely delivery.',
     ],
     buttonText: 'Visit Live Website',
     linkHref: 'https://infispot.com',
@@ -140,24 +141,24 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
     <div ref={ref} className='flex justify-end mb-16'>
       <Image
         src={src}
-        width={300}
+        width={400}
         height={200}
         alt={alt}
-        className='mr-32 mt-2 w-[22rem]'
+        className='mr-32 mt-2 scale-90'
       />
       <div className='mt-16'>
         <h4 className='text-4xl font-semibold'>
           {company}
           <span className='text-emerald-500'>.</span>
         </h4>
-        <h5 className='text-2xl font-semibold text-emerald-600'>
+        <h5 className='text-2xl font-semibold text-emerald-600 mb-8'>
           {role}
           <span className='text-emerald-400'>.</span>
         </h5>
         {responsibilities.map((text, i) => (
           <article
             key={i}
-            className={`text-lg w-[34em] mt-6 leading-relaxed transition-opacity duration-1000 ${
+            className={`text-lg w-[34em] mt-4 leading-relaxed transition-opacity duration-1000 ${
               inView ? 'opacity-100' : 'opacity-10'
             }`}
           >
@@ -165,7 +166,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
           </article>
         ))}
         {isButtonPresent && (
-          <div className='mt-10'>
+          <div className='mt-2'>
             <CustomLinkButton
               href={linkHref}
               text={buttonText}

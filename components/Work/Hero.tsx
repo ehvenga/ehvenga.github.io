@@ -27,12 +27,13 @@ const Hero: React.FC = () => {
           build{' '}
           <span className='font-semibold leading-relaxed'>
             interactive, accessible websites{' '}
-            <span className='font-normal'>and</span> products.
+            <span className='font-normal'>and</span> products
           </span>{' '}
+          that
           <br />
-          Interested in building products and experiences <br /> that{' '}
+          make the world a{' '}
           <span className='font-semibold leading-relaxed'>
-            make the world a little bit brighter.
+            little bit brighter.
           </span>
         </h2>
       </section>
