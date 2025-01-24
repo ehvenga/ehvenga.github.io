@@ -4,19 +4,21 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 const Hero: React.FC = () => {
-  const anchorRef = useRef<HTMLImageElement>(null);
-  const eyesRef = useRef<NodeListOf<HTMLElement> | null>(null);
-  const mousePos = useRef({ x: 0, y: 0 });
-  const animationFrameId = useRef<number | null>(null);
+  const anchorRef = useRef<HTMLDivElement>(null); // Reference to the container
+  const eyesRef = useRef<NodeListOf<HTMLElement> | null>(null); // Reference to the eyes
+  const faceRef = useRef<HTMLImageElement>(null); // Reference to the face (single element)
+  const mousePos = useRef({ x: 0, y: 0 }); // Track mouse position
+  const animationFrameId = useRef<number | null>(null); // Track animation frame
 
   // Cache the eyes and update mouse position on mousemove
   useEffect(() => {
-    eyesRef.current = document.querySelectorAll('.eye');
+    eyesRef.current = document.querySelectorAll('.eye'); // Query all eyes
 
     const handleMouseMove = (event: MouseEvent) => {
       mousePos.current = { x: event.clientX, y: event.clientY };
       if (!animationFrameId.current) {
         animationFrameId.current = requestAnimationFrame(updateEyePosition);
+        animationFrameId.current = requestAnimationFrame(updateFacePosition);
       }
     };
 
@@ -41,7 +43,7 @@ const Hero: React.FC = () => {
     const anchorY = rekt.top + rekt.height / 2;
 
     // Define the maximum distance for x and y axes
-    const maxDistance = 10; // Max movement
+    const maxDistance = 15; // Max movement
 
     // Calculate the difference between the mouse and the face center
     const diffX = mouseX - anchorX;
@@ -63,6 +65,43 @@ const Hero: React.FC = () => {
 
     // Request the next animation frame
     animationFrameId.current = requestAnimationFrame(updateEyePosition);
+  };
+
+  // Update face position using requestAnimationFrame
+  const updateFacePosition = () => {
+    if (!anchorRef.current || !faceRef.current) return;
+
+    const { x: mouseX, y: mouseY } = mousePos.current;
+    const rekt = anchorRef.current.getBoundingClientRect();
+
+    // Calculate the center of the anchor element (face)
+    const anchorX = rekt.left + rekt.width / 2;
+    const anchorY = rekt.top + rekt.height / 2;
+
+    // Define the maximum distance for x and y axes
+    const maxDistance = 5; // Max movement
+    const maxRotation = 3; // Max rotation in degrees
+
+    // Calculate the difference between the mouse and the face center
+    const diffX = mouseX - anchorX;
+    const diffY = mouseY - anchorY;
+
+    // Calculate the distance between the mouse and the face center
+    const distance = Math.sqrt(diffX * diffX + diffY * diffY);
+
+    // Normalize the difference to limit the movement
+    const ratio = Math.min(maxDistance / distance, 1);
+    const moveX = diffX * ratio;
+    const moveY = diffY * ratio;
+
+    // Calculate rotation based on mouse position
+    const rotation = (diffX / window.innerWidth) * maxRotation;
+
+    // Apply translation and rotation to the face element
+    faceRef.current.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotation}deg)`;
+
+    // Request the next animation frame
+    animationFrameId.current = requestAnimationFrame(updateFacePosition);
   };
 
   return (
@@ -96,26 +135,42 @@ const Hero: React.FC = () => {
           <div className='border-l border-black h-80 translate-x-8 mt-6'></div>
         </section>
       </div>
-      <div className='-translate-y-20 translate-x-10 grid place-items-center relative'>
+      <div
+        ref={anchorRef}
+        id='anchor'
+        className='-translate-y-20 translate-x-10 grid place-items-center relative'
+      >
         <Image
-          ref={anchorRef}
-          id='anchor'
+          ref={faceRef}
+          className='face z-10'
           alt='face'
           width={650}
           height={650}
           src='clip-art-face.png'
+          style={{
+            transform: 'translate(var(--move-x, 0), var(--move-y, 0))',
+            transformOrigin: 'center 30%', // Rotate from 20px above the bottom
+            transition: 'transform 0.2s ease-out', // Smooth transition
+          }}
         />
         <Image
-          className='eye absolute top-[410px] left-[220px]'
-          alt='face'
+          className='absolute top-[80px]'
+          alt='neck z-0'
+          width={650}
+          height={650}
+          src='clip-art-neck.png'
+        />
+        <Image
+          className='eye z-20 absolute top-[410px] left-[220px]'
+          alt='left-eye'
           width={45}
           height={45}
           src='clip-art-eye.png'
           style={{ transform: 'translate(var(--move-x, 0), var(--move-y, 0))' }}
         />
         <Image
-          className='eye absolute top-[410px] right-[220px]'
-          alt='face'
+          className='eye z-20 absolute top-[410px] right-[220px]'
+          alt='right-eye'
           width={45}
           height={45}
           src='clip-art-eye.png'
