@@ -10,8 +10,8 @@ const Hero: React.FC = () => {
   });
   return (
     <div>
-      <section className='text-2xl text-cyan-950 mt-32'>
-        <h1 className='text-[3.25em] leading-[1.1em] tracking-wide animate-slide-up font-semibold'>
+      <section className='text-2xl text-cyan-950 mt-12 lg:mt-32 px-4 sm:px-8 lg:px-0'>
+        <h1 className='text-[2.5em] sm:text-[3.25em] leading-[1.1em] tracking-wide animate-slide-up font-semibold'>
           Work
           <span className='text-emerald-400'>.</span>
         </h1>
@@ -37,7 +37,7 @@ const Hero: React.FC = () => {
           </span>
         </h2>
       </section>
-      <section className='mt-20 translate-x-40 '>
+      <section className='mt-10 lg:mt-20 translate-x-0 lg:translate-x-40 px-4 sm:px-8 lg:px-0'>
         <span className='text-xs tracking-[0.4em] animate-slide-up-secondary'>
           {Array.from('SCROLL').map((letter, index) => (
             <span
@@ -49,7 +49,7 @@ const Hero: React.FC = () => {
             </span>
           ))}
         </span>
-        <div className='border-l border-black h-80 translate-x-8 mt-6'></div>
+        <div className='border-l border-black h-40 lg:h-80 translate-x-8 mt-6'></div>
       </section>
     </div>
   );

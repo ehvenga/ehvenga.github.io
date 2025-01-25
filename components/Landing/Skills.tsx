@@ -89,9 +89,9 @@ const Skills: React.FC = () => {
   });
 
   return (
-    <section className='flex flex-col mt-28 mb-36 text-cyan-950'>
+    <section className='flex flex-col mt-20 lg:mt-28 mb-20 lg:mb-36 text-cyan-950 px-4 sm:px-8 lg:px-0'>
       <h3
-        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-4xl sm:text-5xl lg:text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
         ref={headerRef}
@@ -109,16 +109,16 @@ const Skills: React.FC = () => {
         style={{ right: 0, position: 'relative' }}
       ></div>
 
-      <article className='text-lg w-[34em] mt-6 leading-relaxed'>
+      <article className='text-base sm:text-lg w-full lg:w-[34em] mt-6 leading-relaxed'>
         Over the years of my education and professional experience I have
         gathered useful skills for{' '}
         <span className='font-semibold'>Software Development</span> and{' '}
         <span className='font-semibold'>Data Science</span>
       </article>
-      <h5 className='text-2xl mt-10 mb-6 font-semibold text-teal-700'>
+      <h5 className='text-xl sm:text-2xl mt-8 sm:mt-10 mb-4 sm:mb-6 font-semibold text-teal-700'>
         Software Development
       </h5>
-      <div className='flex flex-wrap gap-x-5 gap-y-5'>
+      <div className='flex flex-wrap gap-3 sm:gap-x-5 sm:gap-y-5'>
         {skills.map((skill, index) => (
           <CustomTags
             key={index}
@@ -130,10 +130,10 @@ const Skills: React.FC = () => {
           />
         ))}
       </div>
-      <h5 className='text-2xl mt-10 mb-6 font-semibold text-teal-700'>
+      <h5 className='text-xl sm:text-2xl mt-8 sm:mt-10 mb-4 sm:mb-6 font-semibold text-teal-700'>
         Data Science
       </h5>
-      <div className='flex flex-wrap gap-x-5 gap-y-5'>
+      <div className='flex flex-wrap gap-3 sm:gap-x-5 sm:gap-y-5'>
         {dataSkills.map((skill, index) => (
           <CustomTags
             key={index}
@@ -145,8 +145,10 @@ const Skills: React.FC = () => {
           />
         ))}
       </div>
-      <h5 className='text-2xl mt-10 mb-6 font-semibold text-teal-700'>Other</h5>
-      <div className='flex flex-wrap gap-x-5 gap-y-5'>
+      <h5 className='text-xl sm:text-2xl mt-8 sm:mt-10 mb-4 sm:mb-6 font-semibold text-teal-700'>
+        Other
+      </h5>
+      <div className='flex flex-wrap gap-3 sm:gap-x-5 sm:gap-y-5'>
         {otherSkills.map((skill, index) => (
           <CustomTags
             key={index}

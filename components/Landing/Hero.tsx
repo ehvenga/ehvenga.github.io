@@ -105,10 +105,10 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <div className='flex justify-between'>
+    <div className='flex flex-col lg:flex-row justify-between'>
       <div>
-        <section className='text-2xl text-cyan-950 mt-32'>
-          <h1 className='text-[3.25em] leading-[1.1em] tracking-wide animate-slide-up'>
+        <section className='text-2xl text-cyan-950 mt-12 lg:mt-32'>
+          <h1 className='text-[2.5em] sm:text-[3.25em] leading-[1.1em] tracking-wide animate-slide-up'>
             Hi, my
             <br /> name is <span className='font-semibold'>Hari</span>
             <span className='text-teal-500'>.</span>
@@ -120,7 +120,7 @@ const Hero: React.FC = () => {
             Illinois.
           </h2>
         </section>
-        <section className='mt-20 translate-x-40 '>
+        <section className='mt-10 lg:mt-20 translate-x-0 lg:translate-x-40'>
           <span className='text-xs tracking-[0.4em] animate-slide-up-secondary'>
             {Array.from('SCROLL').map((letter, index) => (
               <span
@@ -132,17 +132,17 @@ const Hero: React.FC = () => {
               </span>
             ))}
           </span>
-          <div className='border-l border-black h-80 translate-x-8 mt-6'></div>
+          <div className='border-l border-black h-40 lg:h-80 translate-x-8 mt-6'></div>
         </section>
       </div>
       <div
         ref={anchorRef}
         id='anchor'
-        className='-translate-y-20 translate-x-10 grid place-items-center relative'
+        className='-translate-y-10 lg:-translate-y-20 translate-x-0 lg:translate-x-10 grid place-items-center relative'
       >
         <Image
           ref={faceRef}
-          className='face z-10'
+          className='face z-10 w-[300px] h-[300px] lg:w-[650px] lg:h-[650px]'
           alt='face'
           width={650}
           height={650}
@@ -154,14 +154,14 @@ const Hero: React.FC = () => {
           }}
         />
         <Image
-          className='absolute top-[80px]'
+          className='absolute top-[40px] lg:top-[80px] w-[300px] h-[300px] lg:w-[650px] lg:h-[650px]'
           alt='neck z-0'
           width={650}
           height={650}
           src='clip-art-neck.png'
         />
         <Image
-          className='eye z-20 absolute top-[410px] left-[220px]'
+          className='eye z-20 absolute top-[200px] lg:top-[410px] left-[100px] lg:left-[220px] w-[25px] h-[25px] lg:w-[45px] lg:h-[45px]'
           alt='left-eye'
           width={45}
           height={45}
@@ -169,7 +169,7 @@ const Hero: React.FC = () => {
           style={{ transform: 'translate(var(--move-x, 0), var(--move-y, 0))' }}
         />
         <Image
-          className='eye z-20 absolute top-[410px] right-[220px]'
+          className='eye z-20 absolute top-[200px] lg:top-[410px] right-[100px] lg:right-[220px] w-[25px] h-[25px] lg:w-[45px] lg:h-[45px]'
           alt='right-eye'
           width={45}
           height={45}

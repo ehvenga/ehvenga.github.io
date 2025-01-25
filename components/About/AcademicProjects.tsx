@@ -92,27 +92,30 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   });
 
   return (
-    <div className='flex items-center justify-end mb-16' ref={ref}>
+    <div
+      className='flex flex-wrap md:flex-nowrap items-center justify-end mb-16'
+      ref={ref}
+    >
       <Image
         src={src}
         width={300}
         height={100}
         alt={alt}
-        className='mr-32 mt-2 scale-75 transition-transform duration-300 hover:scale-80'
+        className='mr-0 md:mr-32 mt-2 scale-75 transition-transform duration-300 hover:scale-80 max-w-full h-auto'
       />
-      <div className='mt-16'>
-        <h4 className='text-3xl font-semibold'>
+      <div className='mt-16 w-full md:w-auto'>
+        <h4 className='text-2xl md:text-3xl font-semibold'>
           {title}
           <span className='text-rose-400'>.</span>
         </h4>
-        <h5 className='text-2xl font-semibold text-rose-800'>
+        <h5 className='text-xl md:text-2xl font-semibold text-rose-800'>
           {subject}
           <span className='text-rose-400'>.</span>
         </h5>
         {responsibilities.map((text, index) => (
           <article
             key={index}
-            className={`text-lg w-[38em] mt-6 leading-relaxed transition-opacity duration-1000 ${
+            className={`text-base md:text-lg w-full md:w-[38em] mt-6 leading-relaxed transition-opacity duration-1000 ${
               inView ? 'opacity-100' : 'opacity-10'
             }`}
           >
@@ -154,7 +157,7 @@ const AcademicProjects: React.FC = () => {
       {/* Animated heading */}
       <h3
         ref={headerRef}
-        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-4xl md:text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -172,7 +175,7 @@ const AcademicProjects: React.FC = () => {
         style={{ right: 0, position: 'relative' }}
       />
       {/* Intro description */}
-      <article className='text-lg w-[34em] mt-6 mb-12 leading-relaxed'>
+      <article className='text-base md:text-lg w-full md:w-[34em] mt-6 mb-12 leading-relaxed'>
         Below are the academic projects that helped me develop the necessary
         skills to succeed in my academics and professional life.
       </article>

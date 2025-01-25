@@ -12,7 +12,6 @@ interface ExperienceProps {
   alt: string;
 }
 
-// Centralized data for easier updates and maintenance
 const educationData: ExperienceProps[] = [
   {
     company: 'Bradley University',
@@ -36,7 +35,6 @@ const educationData: ExperienceProps[] = [
   },
 ];
 
-// Reusable component for each education entry
 const ExperienceItem: React.FC<ExperienceProps> = ({
   company,
   role,
@@ -50,27 +48,30 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   });
 
   return (
-    <div className='flex justify-end items-center mb-6' ref={ref}>
+    <div
+      className='flex flex-wrap md:flex-nowrap justify-end items-center mb-6'
+      ref={ref}
+    >
       <Image
         src={src}
         width={400}
         height={200}
         alt={alt}
-        className='mr-32 mt-2 scale-90 transition-transform duration-300 hover:scale-95'
+        className='mr-0 md:mr-32 mt-2 scale-90 transition-transform duration-300 hover:scale-95 max-w-full h-auto'
       />
-      <div className='mt-10'>
-        <h4 className='text-4xl font-semibold'>
+      <div className='mt-10 max-w-full'>
+        <h4 className='text-3xl md:text-4xl font-semibold'>
           {company}
           <span className='text-rose-400'>.</span>
         </h4>
-        <h5 className='text-2xl font-semibold text-rose-800'>
+        <h5 className='text-xl md:text-2xl font-semibold text-rose-800'>
           {role}
           <span className='text-rose-400'>.</span>
         </h5>
         {responsibilities.map((text, index) => (
           <article
             key={index}
-            className={`text-lg w-[34em] mt-6 leading-relaxed transition-opacity duration-1000 ${
+            className={`text-base md:text-lg max-w-[34em] mt-6 leading-relaxed transition-opacity duration-1000 ${
               inView ? 'opacity-100' : 'opacity-10'
             }`}
           >
@@ -83,7 +84,6 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
 };
 
 const Education: React.FC = () => {
-  // Intersection observer for the section header
   const { ref: headerRef, inView: headerInView } = useInView({
     triggerOnce: true,
     threshold: 0.5,
@@ -96,10 +96,9 @@ const Education: React.FC = () => {
 
   return (
     <section className='mt-28 mb-28 text-red-950'>
-      {/* Animated heading */}
       <h3
         ref={headerRef}
-        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-4xl md:text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -108,7 +107,6 @@ const Education: React.FC = () => {
           🎓
         </div>
       </h3>
-      {/* Animated border */}
       <div
         ref={borderRef}
         style={{ right: 0, position: 'relative' }}
@@ -116,14 +114,11 @@ const Education: React.FC = () => {
           borderInView ? 'animate-slideInBarFromRight' : 'w-0 opacity-0'
         }`}
       ></div>
-
-      <article className='text-lg w-[34em] mt-6 mb-12 leading-relaxed'>
+      <article className='text-base md:text-lg max-w-2xl mt-6 mb-12 leading-relaxed'>
         Naturally adept with technology, I pursued a Bachelor’s in Mechanical
         Engineering and later specialized in Data Science & Analytics for my
         Master’s to tackle new challenges.
       </article>
-
-      {/* Education items */}
       <div className='divide-solid divide-y-2 divide-rose-200 mt-12 mb-16'>
         {educationData.map((exp, idx) => (
           <ExperienceItem key={idx} {...exp} />

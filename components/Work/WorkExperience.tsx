@@ -86,10 +86,10 @@ const WorkExperience: React.FC = () => {
   });
 
   return (
-    <section className='mt-28 text-cyan-950'>
+    <section className='mt-20 lg:mt-28 text-cyan-950 px-4 sm:px-8 lg:px-0'>
       <h3
         ref={headerRef}
-        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-4xl sm:text-5xl lg:text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -107,7 +107,7 @@ const WorkExperience: React.FC = () => {
         style={{ position: 'relative', right: 0 }}
       ></div>
 
-      <article className='text-lg w-[40em] mt-6 mb-12 leading-relaxed'>
+      <article className='text-base sm:text-lg w-full lg:w-[40em] mt-6 mb-12 leading-relaxed'>
         4+ years of experience as a Full-Stack Developer skilled in Postgres,
         SQL, JavaScript, Python, Django, and React. Runner-Up at the North
         American IEOM Conference as a Graduate Research Student.
@@ -138,27 +138,30 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   });
 
   return (
-    <div ref={ref} className='flex justify-end mb-16'>
+    <div
+      ref={ref}
+      className='flex flex-col lg:flex-row justify-end items-center lg:items-start mb-8 lg:mb-16'
+    >
       <Image
         src={src}
         width={400}
         height={200}
         alt={alt}
-        className='mr-32 mt-2 scale-90 transition-transform duration-300 hover:scale-95'
+        className='lg:mr-32 mt-2 scale-90 transition-transform duration-300 hover:scale-95 w-[200px] lg:w-[400px]'
       />
-      <div className='mt-16'>
-        <h4 className='text-4xl font-semibold'>
+      <div className='mt-8 lg:mt-16 w-full lg:w-auto'>
+        <h4 className='text-2xl sm:text-3xl lg:text-4xl font-semibold'>
           {company}
           <span className='text-emerald-500'>.</span>
         </h4>
-        <h5 className='text-2xl font-semibold text-emerald-600 mb-8'>
+        <h5 className='text-xl sm:text-2xl font-semibold text-emerald-600 mb-4 lg:mb-8'>
           {role}
           <span className='text-emerald-400'>.</span>
         </h5>
         {responsibilities.map((text, i) => (
           <article
             key={i}
-            className={`text-lg w-[34em] mt-4 leading-relaxed transition-opacity duration-1000 ${
+            className={`text-base sm:text-lg w-full lg:w-[34em] mt-4 leading-relaxed transition-opacity duration-1000 ${
               inView ? 'opacity-100' : 'opacity-10'
             }`}
           >
@@ -166,7 +169,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
           </article>
         ))}
         {isButtonPresent && (
-          <div className='mt-2'>
+          <div className='mt-4 lg:mt-2'>
             <CustomLinkButton
               href={linkHref}
               text={buttonText}

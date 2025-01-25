@@ -24,10 +24,10 @@ const Build: React.FC = () => {
   ];
 
   return (
-    <section className='mt-28 mb-36 text-cyan-950'>
+    <section className='mt-20 lg:mt-28 mb-20 lg:mb-36 text-cyan-950 px-4 sm:px-8 lg:px-0'>
       {/* Section Header */}
       <h3
-        className={`group flex heading text-6xl font-semibold transition-opacity duration-1000 ${
+        className={`group flex heading text-4xl sm:text-5xl lg:text-6xl font-semibold transition-opacity duration-1000 ${
           headerInView ? 'opacity-100' : 'opacity-0'
         }`}
         ref={headerRef}
@@ -48,7 +48,7 @@ const Build: React.FC = () => {
       ></div>
 
       {/* Description */}
-      <article className='text-lg w-[34em] mt-6 leading-relaxed'>
+      <article className='text-base sm:text-lg w-full lg:w-[34em] mt-6 leading-relaxed'>
         From innovative interactive webpages and scalable applications to
         single-page apps and experimental 3D projects, I help teams build
         ambitious yet accessible web experiences -{' '}
@@ -56,7 +56,7 @@ const Build: React.FC = () => {
       </article>
 
       {/* Buttons */}
-      <div className='flex gap-x-6'>
+      <div className='flex flex-col sm:flex-row gap-4 sm:gap-x-6 mt-2'>
         {buttons.map((button, index) => (
           <CustomLinkButton
             key={index}

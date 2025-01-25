@@ -24,23 +24,15 @@ const Hero: React.FC = () => {
         ></div>
         <h2 className='pt-6 animate-slide-up-secondary'>
           Learn more about my academic journey and find out
-          <br /> about the{' '}
+          <br className='hidden md:block' /> about the{' '}
           <span className='font-semibold leading-relaxed'>
             interesting projects
           </span>{' '}
-          I was a part of through my <br />
+          I was a part of through my <br className='hidden md:block' />
           academic journey.
-          {/* I'm a{' '}
-          <span className='font-semibold leading-relaxed'>
-            developer, data scientist <span className='font-normal'>and</span>{' '}
-            designer{' '}
-          </span>{' '}
-          who has been building for <br /> the web in some capacity since 2015.
-          I specialize in accessibility, performance <br /> and usability
-          without sacrificing creativity. */}
         </h2>
       </section>
-      <section className='mt-20 translate-x-40 '>
+      <section className='mt-20 translate-x-0 md:translate-x-40'>
         <span className='text-xs tracking-[0.4em] animate-slide-up-secondary'>
           {Array.from('SCROLL').map((letter, index) => (
             <span

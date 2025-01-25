@@ -50,7 +50,6 @@ const experienceData: ExperienceProps[] = [
     buttonText: 'View Github',
     src: 'p-3.png',
     alt: 'backward compatibility image',
-    // url: '',
   },
   {
     title: 'Pokemon Sprite Contest',
@@ -129,16 +128,21 @@ const Experience: React.FC<ExperienceProps> = ({
   });
 
   return (
-    <div className='flex justify-end items-center mb-16' ref={ref}>
-      <Image
-        src={src}
-        width={450}
-        height={200}
-        alt={alt}
-        className='mr-24 mt-2 transition-transform duration-300 hover:scale-[1.03]'
-      />
-      <div className='mt-4'>
-        <h4 className='text-4xl font-semibold'>
+    <div
+      className='flex flex-col lg:flex-row justify-end items-center mb-8'
+      ref={ref}
+    >
+      <div className='lg:order-1 lg:mr-24 mt-2 transition-transform duration-300 hover:scale-[1.03]'>
+        <Image
+          src={src}
+          width={450}
+          height={200}
+          alt={alt}
+          className='w-full h-auto'
+        />
+      </div>
+      <div className='lg:order-2 mt-4 lg:mt-0'>
+        <h4 className='text-3xl lg:text-4xl font-semibold'>
           {title}
           <span className='text-orange-400'>.</span>
         </h4>
@@ -149,7 +153,7 @@ const Experience: React.FC<ExperienceProps> = ({
         {description.map((text, index) => (
           <article
             key={index}
-            className={`text-lg w-[34em] mt-4 leading-relaxed transition-opacity duration-1000 ${
+            className={`text-lg lg:w-[34em] mt-4 leading-relaxed transition-opacity duration-1000 ${
               inView ? 'opacity-100' : 'opacity-10'
             }`}
           >
