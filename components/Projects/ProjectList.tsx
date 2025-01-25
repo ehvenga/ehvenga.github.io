@@ -3,6 +3,7 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import CustomLinkButton from '../reusable/CustomLinkButton';
+import Image from 'next/image';
 
 interface ExperienceProps {
   title: string;
@@ -10,6 +11,8 @@ interface ExperienceProps {
   description: string[];
   buttonText: string;
   url?: string;
+  src: string;
+  alt: string;
 }
 
 const experienceData: ExperienceProps[] = [
@@ -22,6 +25,8 @@ const experienceData: ExperienceProps[] = [
     ],
     buttonText: 'Visit Github',
     url: 'https://github.com/ehvenga/interactive.approach.to.backward.compatible.modular.system.configuration',
+    src: 'p-1.png',
+    alt: 'backward compatibility image',
   },
   {
     title: 'Path Finding Visualizer',
@@ -32,6 +37,8 @@ const experienceData: ExperienceProps[] = [
     ],
     buttonText: 'Visit Live Website',
     url: 'https://path-visualizer-nextjs.vercel.app/',
+    src: 'p-2.png',
+    alt: 'backward compatibility image',
   },
   {
     title: 'GTA V Mods',
@@ -41,6 +48,8 @@ const experienceData: ExperienceProps[] = [
       'Ensuring scalability and performance of web applications.',
     ],
     buttonText: 'View Github',
+    src: 'p-3.png',
+    alt: 'backward compatibility image',
     // url: '',
   },
   {
@@ -52,6 +61,8 @@ const experienceData: ExperienceProps[] = [
     ],
     buttonText: 'Visit Live Website',
     url: 'https://pokemon-sprite-contest.vercel.app/',
+    src: 'p-4.png',
+    alt: 'backward compatibility image',
   },
   {
     title: 'Trump Chatbot',
@@ -62,6 +73,8 @@ const experienceData: ExperienceProps[] = [
     ],
     buttonText: 'Visit Live Website',
     url: 'https://trumpbot-nextjs-gpt.vercel.app/',
+    src: 'p-5.png',
+    alt: 'backward compatibility image',
   },
   {
     title: 'Hand Gesture Recognition',
@@ -72,6 +85,8 @@ const experienceData: ExperienceProps[] = [
     ],
     buttonText: 'View Github',
     url: 'https://github.com/ehvenga/handgesture.recognition-tensorflow',
+    src: 'p-6.png',
+    alt: 'backward compatibility image',
   },
   {
     title: 'Chicago Crime Analysis',
@@ -82,6 +97,8 @@ const experienceData: ExperienceProps[] = [
     ],
     buttonText: 'View Github',
     url: 'https://github.com/ehvenga/chicago.crime.overview-tableau',
+    src: 'p-7.png',
+    alt: 'backward compatibility image',
   },
   {
     title: 'Flower Identification',
@@ -92,6 +109,8 @@ const experienceData: ExperienceProps[] = [
     ],
     buttonText: 'View Github',
     url: 'https://github.com/ehvenga/gemstones.prediction-tensorflow',
+    src: 'p-8.png',
+    alt: 'backward compatibility image',
   },
 ];
 
@@ -101,6 +120,8 @@ const Experience: React.FC<ExperienceProps> = ({
   description,
   buttonText,
   url,
+  src,
+  alt,
 }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -108,8 +129,15 @@ const Experience: React.FC<ExperienceProps> = ({
   });
 
   return (
-    <div className='flex justify-end mb-16' ref={ref}>
-      <div className='mt-16'>
+    <div className='flex justify-end items-center mb-16' ref={ref}>
+      <Image
+        src={src}
+        width={450}
+        height={200}
+        alt={alt}
+        className='mr-24 mt-2 transition-transform duration-300 hover:scale-[1.03]'
+      />
+      <div className='mt-4'>
         <h4 className='text-4xl font-semibold'>
           {title}
           <span className='text-orange-400'>.</span>

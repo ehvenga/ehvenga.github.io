@@ -22,7 +22,7 @@ const experiences: ExperienceProps[] = [
     role: 'Graduate Research Student',
     responsibilities: [
       'Researched Modular System Configurations under Dr. John Yoo, leveraging tree-based and DP-based algorithms.',
-      'Designed and implemented front-end, back-end, and database systems, achieving automated configuration of over 3,000 parts while ensuring system optimality.',
+      'Designed and implemented front-end, back-end,   and database systems, achieving automated configuration of over 3,000 parts while ensuring system optimality.',
     ],
     buttonText: 'Visit Github',
     linkHref:
@@ -144,7 +144,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
         width={400}
         height={200}
         alt={alt}
-        className='mr-32 mt-2 scale-90'
+        className='mr-32 mt-2 scale-90 transition-transform duration-300 hover:scale-95'
       />
       <div className='mt-16'>
         <h4 className='text-4xl font-semibold'>

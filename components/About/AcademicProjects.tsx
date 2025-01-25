@@ -98,7 +98,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
         width={300}
         height={100}
         alt={alt}
-        className='mr-32 mt-2 scale-75'
+        className='mr-32 mt-2 scale-75 transition-transform duration-300 hover:scale-80'
       />
       <div className='mt-16'>
         <h4 className='text-3xl font-semibold'>
