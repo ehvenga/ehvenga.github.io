@@ -23,7 +23,7 @@ const experienceData: ExperienceProps[] = [
       'I have been working on interesting research challenges under Dr. John Yoo regarding automated modular system configuration.',
       'I have worked on the algorithms, front-end and back-end systems for the backward compatible modular system design.',
     ],
-    buttonText: 'Visit Github',
+    buttonText: 'View Github',
     url: 'https://github.com/ehvenga/interactive.approach.to.backward.compatible.modular.system.configuration',
     src: 'p-1.png',
     alt: 'backward compatibility image',
@@ -129,16 +129,16 @@ const Experience: React.FC<ExperienceProps> = ({
 
   return (
     <div
-      className='flex flex-col lg:flex-row justify-end items-center mb-8'
+      className='flex flex-col lg:flex-row justify-end items-center mb-8 group'
       ref={ref}
     >
-      <div className='lg:order-1 lg:mr-24 mt-2 transition-transform duration-300 hover:scale-[1.03]'>
+      <div className='lg:order-1 lg:mr-24 mt-2'>
         <Image
           src={src}
           width={450}
           height={200}
           alt={alt}
-          className='w-full h-auto'
+          className='w-full h-auto transition-transform duration-300 group-hover:scale-[1.03]'
         />
       </div>
       <div className='lg:order-2 mt-4 lg:mt-0'>

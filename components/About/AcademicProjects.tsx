@@ -93,7 +93,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
 
   return (
     <div
-      className='flex flex-wrap md:flex-nowrap items-center justify-end mb-16'
+      className='flex flex-wrap md:flex-nowrap items-center justify-end mb-16 group'
       ref={ref}
     >
       <Image
@@ -101,7 +101,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
         width={300}
         height={100}
         alt={alt}
-        className='mr-0 md:mr-32 mt-2 scale-75 transition-transform duration-300 hover:scale-80 max-w-full h-auto'
+        className='mr-0 md:mr-32 translate-y-6 scale-75 transition-transform duration-300 group-hover:scale-[0.8] max-w-full h-auto'
       />
       <div className='mt-16 w-full md:w-auto'>
         <h4 className='text-2xl md:text-3xl font-semibold'>
@@ -126,7 +126,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
           <div className='mt-2'>
             <CustomLinkButton
               href={link}
-              text='Find out more'
+              text='View Github'
               textColor='text-rose-500'
               bgColor='bg-rose-100'
               borderColor='border-rose-500'

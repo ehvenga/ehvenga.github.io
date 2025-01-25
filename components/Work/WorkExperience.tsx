@@ -140,14 +140,14 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
   return (
     <div
       ref={ref}
-      className='flex flex-col lg:flex-row justify-end items-center lg:items-start mb-8 lg:mb-16'
+      className='flex flex-col lg:flex-row justify-end items-center lg:items-start mb-8 lg:mb-16 group'
     >
       <Image
         src={src}
         width={400}
         height={200}
         alt={alt}
-        className='lg:mr-32 mt-2 scale-90 transition-transform duration-300 hover:scale-95 w-[200px] lg:w-[400px]'
+        className='lg:mr-32 mt-2 scale-90 transition-transform duration-300 group-hover:scale-95 w-[200px] lg:w-[400px]'
       />
       <div className='mt-8 lg:mt-16 w-full lg:w-auto'>
         <h4 className='text-2xl sm:text-3xl lg:text-4xl font-semibold'>

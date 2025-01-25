@@ -49,7 +49,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
 
   return (
     <div
-      className='flex flex-wrap md:flex-nowrap justify-end items-center mb-6'
+      className='flex flex-wrap md:flex-nowrap justify-end items-center mb-6 group'
       ref={ref}
     >
       <Image
@@ -57,7 +57,7 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
         width={400}
         height={200}
         alt={alt}
-        className='mr-0 md:mr-32 mt-2 scale-90 transition-transform duration-300 hover:scale-95 max-w-full h-auto'
+        className='mr-0 md:mr-32 mt-2 scale-90 transition-transform duration-300 group-hover:scale-95 max-w-full h-auto'
       />
       <div className='mt-10 max-w-full'>
         <h4 className='text-3xl md:text-4xl font-semibold'>
