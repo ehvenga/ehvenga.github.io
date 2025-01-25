@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
       )}
 
       <div
-        className={`m-8 pt-12 px-12 flex justify-between overflow-hidden z-10 fixed -top-10 left-0 w-screen-minus-10 h-screen-minus-10 bg-violet-50 items-start transform transition-transform duration-200 ${
+        className={`m-8 pt-12 px-4 sm:px-12 flex justify-between overflow-hidden z-10 fixed -top-10 left-0 w-screen-minus-10 h-screen-minus-10 bg-violet-50 items-start transform transition-transform duration-200 ${
           menuOpen
             ? 'translate-y-10 pointer-events-auto'
             : '-translate-y-full pointer-events-none'
@@ -183,7 +183,7 @@ const Navbar: React.FC = () => {
           HIRE ME
         </Link>
 
-        <div className='absolute mt-24 text-cyan-950 font-bold text-6xl w-full'>
+        <div className='absolute mt-24 text-cyan-950 font-bold text-4xl sm:text-6xl w-full'>
           <div className='flex gap-x-10 items-center'>
             <div
               className={`border-b-4 border-violet-400 mt-3 mb-20 relative ${
@@ -228,7 +228,7 @@ const Navbar: React.FC = () => {
                   style={{ animationDelay: `${dropDelay}s` }}
                   className={
                     menuOpen && barDone && iconsDone
-                      ? 'animate-softDrop opacity-0 grid grid-cols-4 items-end group'
+                      ? 'animate-softDrop opacity-0 grid grid-cols-1 sm:grid-cols-4 items-end group'
                       : 'opacity-0'
                   }
                 >
@@ -242,7 +242,7 @@ const Navbar: React.FC = () => {
                       {item.label}
                     </Link>
                   </li>
-                  <span className='text-base font-medium col-start-2 text-violet-950 group text-violet-800-hover:text-violet-900'>
+                  <span className='hidden lg:block text-base font-medium col-start-2 text-violet-950 group text-violet-800-hover:text-violet-900'>
                     {item.desc}
                   </span>
                 </span>
@@ -252,7 +252,7 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <div className='p-20 flex justify-between absolute w-full items-start'>
+      <div className='p-8 sm:p-20 flex justify-between absolute w-full items-start'>
         <div className='flex items-center divide-x divide-gray-500 gap-x-4'>
           <Link className={lilitaOne.className} href={'/'}>
             <div className={`text-xl text-${color}-900`}>ehvenga</div>
