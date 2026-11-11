@@ -18,11 +18,25 @@ interface ExperienceProps {
 
 const experiences: ExperienceProps[] = [
   {
+    company: 'Optimum Technology',
+    role: 'Full-Stack Developer',
+    responsibilities: [
+      'Developed and tested enterprise-scale web applications using modern full-stack technologies, ensuring performance, reliability, and scalability.',
+      'Contributed to the AI Practice, exploring AI-driven solutions and leveraging Microsoft Azure for cloud-based application development.',
+    ],
+    buttonText: 'Visit Website',
+    linkHref: 'https://www.optimumtech.com',
+    src: '/otech-logo.png',
+    alt: 'Optimum Technology Logo',
+    isButtonPresent: false,
+  },
+
+  {
     company: 'Bradley University',
     role: 'Graduate Research Student',
     responsibilities: [
       'Researched Modular System Configurations under Dr. John Yoo, leveraging tree-based and DP-based algorithms.',
-      'Designed and implemented front-end, back-end,   and database systems, achieving automated configuration of over 3,000 parts while ensuring system optimality.',
+      'Designed and implemented front-end, back-end, and database systems, achieving automated configuration of over 3,000 parts while ensuring system optimality.',
     ],
     buttonText: 'Visit Github',
     linkHref:
@@ -36,8 +50,8 @@ const experiences: ExperienceProps[] = [
     role: 'Full-Stack Developer',
     responsibilities: [
       'Led development efforts on various web applications using modern technologies handling around 300,000 users.',
-      'Architected a microservices-based system using, ensuring scalability and modularity for real-time loan automation.',
-      'Collaborated with cross-functional teams, integrated CI/CD pipelines, and deliver an eCommerce platform.',
+      'Architected a microservices-based system, ensuring scalability and modularity for real-time loan automation.',
+      'Collaborated with cross-functional teams, integrated CI/CD pipelines, and delivered an eCommerce platform.',
     ],
     buttonText: 'Visit Website',
     linkHref: 'https://leo1.com',
@@ -74,7 +88,6 @@ const experiences: ExperienceProps[] = [
 ];
 
 const WorkExperience: React.FC = () => {
-  // Hook for the section header
   const { ref: headerRef, inView: headerInView } = useInView({
     triggerOnce: true,
     threshold: 0.5,
@@ -108,14 +121,16 @@ const WorkExperience: React.FC = () => {
       ></div>
 
       <article className='text-base sm:text-lg w-full lg:w-[40em] mt-6 mb-12 leading-relaxed'>
-        4+ years of experience as a Full-Stack Developer skilled in Postgres,
-        SQL, JavaScript, Python, Django, and React. Runner-Up at the North
+        Full-Stack Developer with 4+ years of experience building and testing
+        scalable enterprise applications using TypeScript, JavaScript, React,
+        Next.js, Python, SQL, and modern cloud technologies. Experienced in
+        Microsoft Azure and AI-driven initiatives. Runner-Up at the North
         American IEOM Conference as a Graduate Research Student.
       </article>
 
       <div className='divide-solid divide-y-2 divide-emerald-200'>
-        {experiences.map((exp, index) => (
-          <ExperienceItem key={index} {...exp} />
+        {experiences.map((exp) => (
+          <ExperienceItem key={exp.company} {...exp} />
         ))}
       </div>
     </section>
@@ -142,32 +157,48 @@ const ExperienceItem: React.FC<ExperienceProps> = ({
       ref={ref}
       className='flex flex-col lg:flex-row justify-end items-center lg:items-start mb-8 lg:mb-16 group'
     >
-      <Image
-        src={src}
-        width={400}
-        height={200}
-        alt={alt}
-        className='lg:mr-32 mt-2 scale-90 transition-transform duration-300 group-hover:scale-95 w-[200px] lg:w-[400px]'
-      />
+      {company === 'Optimum Technology' ? (
+        <div className='lg:mr-32 mt-20 flex w-[200px] lg:w-[400px] h-[120px] lg:h-[200px] flex-shrink-0 items-center justify-center'>
+          <Image
+            src={src}
+            width={600}
+            height={80}
+            alt={alt}
+            className='w-full h-auto object-contain scale-90 transition-transform duration-300 group-hover:scale-95'
+          />
+        </div>
+      ) : (
+        <Image
+          src={src}
+          width={400}
+          height={200}
+          alt={alt}
+          className='lg:mr-32 mt-2 scale-90 transition-transform duration-300 group-hover:scale-95 w-[200px] lg:w-[400px]'
+        />
+      )}
+
       <div className='mt-8 lg:mt-16 w-full lg:w-auto'>
         <h4 className='text-2xl sm:text-3xl lg:text-4xl font-semibold'>
           {company}
           <span className='text-emerald-500'>.</span>
         </h4>
+
         <h5 className='text-xl sm:text-2xl font-semibold text-emerald-600 mb-4 lg:mb-8'>
           {role}
           <span className='text-emerald-400'>.</span>
         </h5>
-        {responsibilities.map((text, i) => (
+
+        {responsibilities.map((responsibility, index) => (
           <article
-            key={i}
+            key={`${company}-responsibility-${index}`}
             className={`text-base sm:text-lg w-full lg:w-[34em] mt-4 leading-relaxed transition-opacity duration-1000 ${
               inView ? 'opacity-100' : 'opacity-10'
             }`}
           >
-            {text}
+            {responsibility}
           </article>
         ))}
+
         {isButtonPresent && (
           <div className='mt-4 lg:mt-2'>
             <CustomLinkButton
