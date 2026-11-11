@@ -8,6 +8,58 @@ interface PointerPosition {
   y: number;
 }
 
+interface MobileMovement {
+  faceX: number;
+  faceY: number;
+  rotation: number;
+  eyeX: number;
+  eyeY: number;
+}
+
+interface MobileInteraction {
+  x: number;
+  y: number;
+  lastTime: number;
+  scrollImpulse: number;
+  lastScrollY: number;
+  current: MobileMovement;
+}
+
+const clamp = (value: number, min: number, max: number): number =>
+  Math.max(min, Math.min(max, value));
+
+const createMovement = (): MobileMovement => ({
+  faceX: 0,
+  faceY: 0,
+  rotation: 0,
+  eyeX: 0,
+  eyeY: 0,
+});
+
+// Mobile and iPad animation settings.
+// Desktop mouse tracking does not use these values.
+const MOBILE_ANIMATION = {
+  idleFaceX: 12,
+  idleFaceY: 8,
+  idleRotation: 2.2,
+  idleEyeX: 12,
+  idleEyeY: 8,
+
+  touchFaceX: 15,
+  touchFaceY: 12,
+  touchEyeX: 22,
+  touchEyeY: 18,
+  touchRotation: 4,
+
+  scrollFaceY: 10,
+  scrollEyeY: 12,
+
+  smoothing: 9,
+  scrollDecay: 2.8,
+  touchDecay: 1500,
+  touchHold: 450,
+} as const;
+
 const Hero: React.FC = () => {
   const anchorRef = useRef<HTMLDivElement>(null);
   const headRef = useRef<HTMLDivElement>(null);
@@ -21,12 +73,35 @@ const Hero: React.FC = () => {
 
   const animationFrameId = useRef<number | null>(null);
 
+  const mobileRef = useRef<MobileInteraction>({
+    x: 0,
+    y: 0,
+    lastTime: 0,
+    scrollImpulse: 0,
+    lastScrollY: 0,
+    current: createMovement(),
+  });
+
   useEffect(() => {
     const pointerMedia = window.matchMedia('(any-pointer: fine)');
 
     const reducedMotionMedia = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     );
+
+    const mobileMedia = window.matchMedia('(max-width: 1023px)');
+
+    let mobileAnimationId: number | null = null;
+    let mobileAnimationStart = 0;
+    let lastMobileFrame = 0;
+    let touchActive = false;
+
+    const shouldUseMobileAnimation = (): boolean => {
+      return (
+        !reducedMotionMedia.matches &&
+        (mobileMedia.matches || !pointerMedia.matches)
+      );
+    };
 
     const resetPosition = (): void => {
       if (animationFrameId.current !== null) {
@@ -48,6 +123,7 @@ const Hero: React.FC = () => {
       }
     };
 
+    // Original desktop mouse tracking.
     const updatePosition = (): void => {
       animationFrameId.current = null;
 
@@ -120,6 +196,7 @@ const Hero: React.FC = () => {
       if (
         !pointerMedia.matches ||
         reducedMotionMedia.matches ||
+        shouldUseMobileAnimation() ||
         event.pointerType === 'touch'
       ) {
         return;
@@ -135,29 +212,350 @@ const Hero: React.FC = () => {
       }
     };
 
-    const handleDeviceChange = (): void => {
-      resetPosition();
+    // Expressive mobile and iPad animation.
+    const updateMobilePosition = (timestamp: number): void => {
+      mobileAnimationId = null;
+
+      if (!shouldUseMobileAnimation() || document.hidden) {
+        return;
+      }
+
+      const anchor = anchorRef.current;
+      const head = headRef.current;
+      const leftEye = leftEyeRef.current;
+      const rightEye = rightEyeRef.current;
+
+      if (!anchor || !head || !leftEye || !rightEye) {
+        return;
+      }
+
+      if (mobileAnimationStart === 0) {
+        mobileAnimationStart = timestamp;
+      }
+
+      const elapsed = (timestamp - mobileAnimationStart) / 1000;
+
+      const deltaTime =
+        lastMobileFrame === 0
+          ? 1 / 60
+          : Math.min((timestamp - lastMobileFrame) / 1000, 0.05);
+
+      lastMobileFrame = timestamp;
+
+      const mobile = mobileRef.current;
+      const rect = anchor.getBoundingClientRect();
+
+      const scale = rect.width / 650;
+
+      // More expressive idle head movement.
+      const idleFaceX =
+        (Math.sin(elapsed * 0.85) * 0.75 + Math.sin(elapsed * 0.37) * 0.25) *
+        MOBILE_ANIMATION.idleFaceX *
+        scale;
+
+      const idleFaceY =
+        Math.sin(elapsed * 1.1 + 0.5) * MOBILE_ANIMATION.idleFaceY * scale;
+
+      const idleRotation =
+        Math.sin(elapsed * 0.65) * MOBILE_ANIMATION.idleRotation;
+
+      // Eyes move independently from the head.
+      const idleEyeX =
+        Math.sin(elapsed * 0.95 + 0.8) * MOBILE_ANIMATION.idleEyeX * scale;
+
+      const idleEyeY =
+        Math.sin(elapsed * 0.75 + 1.2) * MOBILE_ANIMATION.idleEyeY * scale;
+
+      // Touch temporarily takes priority over idle movement.
+      const timeSinceTouch = timestamp - mobile.lastTime;
+
+      const touchStrength =
+        mobile.lastTime > 0
+          ? Math.exp(
+              -Math.max(0, timeSinceTouch - MOBILE_ANIMATION.touchHold) /
+                MOBILE_ANIMATION.touchDecay
+            )
+          : 0;
+
+      const touchFaceX =
+        mobile.x * MOBILE_ANIMATION.touchFaceX * scale * touchStrength;
+
+      const touchFaceY =
+        mobile.y * MOBILE_ANIMATION.touchFaceY * scale * touchStrength;
+
+      const touchEyeX =
+        mobile.x * MOBILE_ANIMATION.touchEyeX * scale * touchStrength;
+
+      const touchEyeY =
+        mobile.y * MOBILE_ANIMATION.touchEyeY * scale * touchStrength;
+
+      const touchRotation =
+        mobile.x * MOBILE_ANIMATION.touchRotation * touchStrength;
+
+      // More visible scroll response.
+      mobile.scrollImpulse *= Math.exp(
+        -deltaTime * MOBILE_ANIMATION.scrollDecay
+      );
+
+      if (Math.abs(mobile.scrollImpulse) < 0.001) {
+        mobile.scrollImpulse = 0;
+      }
+
+      const scrollFaceY =
+        mobile.scrollImpulse * MOBILE_ANIMATION.scrollFaceY * scale;
+
+      const scrollEyeY =
+        mobile.scrollImpulse * MOBILE_ANIMATION.scrollEyeY * scale;
+
+      const idleStrength = 1 - 0.75 * touchStrength;
+
+      const target: MobileMovement = {
+        faceX: idleFaceX * idleStrength + touchFaceX,
+
+        faceY: idleFaceY * idleStrength + touchFaceY + scrollFaceY,
+
+        rotation: idleRotation * idleStrength + touchRotation,
+
+        eyeX: idleEyeX * idleStrength + touchEyeX,
+
+        eyeY: idleEyeY * idleStrength + touchEyeY + scrollEyeY,
+      };
+
+      // Keep pupils within a reasonable movement range.
+      const maxEyeOffset = 24 * scale;
+
+      target.eyeX = clamp(target.eyeX, -maxEyeOffset, maxEyeOffset);
+
+      target.eyeY = clamp(target.eyeY, -maxEyeOffset, maxEyeOffset);
+
+      target.rotation = clamp(target.rotation, -5, 5);
+
+      // Smooth transitions independent of frame rate.
+      const smoothing = 1 - Math.exp(-deltaTime * MOBILE_ANIMATION.smoothing);
+
+      const current = mobile.current;
+
+      current.faceX += (target.faceX - current.faceX) * smoothing;
+
+      current.faceY += (target.faceY - current.faceY) * smoothing;
+
+      current.rotation += (target.rotation - current.rotation) * smoothing;
+
+      current.eyeX += (target.eyeX - current.eyeX) * smoothing;
+
+      current.eyeY += (target.eyeY - current.eyeY) * smoothing;
+
+      // Face and neck always move as one unit.
+      head.style.transform = `
+        translate3d(
+          ${current.faceX}px,
+          ${current.faceY}px,
+          0
+        )
+        rotate(${current.rotation}deg)
+      `;
+
+      // Pupils follow idle, touch, and scroll movements.
+      const eyeTransform = `
+        translate3d(
+          ${current.eyeX}px,
+          ${current.eyeY}px,
+          0
+        )
+      `;
+
+      leftEye.style.transform = eyeTransform;
+      rightEye.style.transform = eyeTransform;
+
+      mobileAnimationId = requestAnimationFrame(updateMobilePosition);
     };
+
+    const stopMobileAnimation = (): void => {
+      if (mobileAnimationId !== null) {
+        cancelAnimationFrame(mobileAnimationId);
+        mobileAnimationId = null;
+      }
+
+      lastMobileFrame = 0;
+    };
+
+    const startMobileAnimation = (): void => {
+      if (
+        !shouldUseMobileAnimation() ||
+        document.hidden ||
+        mobileAnimationId !== null
+      ) {
+        return;
+      }
+
+      mobileAnimationId = requestAnimationFrame(updateMobilePosition);
+    };
+
+    const handleMobileTouch = (event: PointerEvent): void => {
+      if (!shouldUseMobileAnimation() || event.pointerType !== 'touch') {
+        return;
+      }
+
+      const anchor = anchorRef.current;
+
+      if (!anchor) return;
+
+      const rect = anchor.getBoundingClientRect();
+
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const horizontalRange = Math.max(window.innerWidth / 2, 1);
+
+      const verticalRange = Math.max(window.innerHeight / 2, 1);
+
+      const mobile = mobileRef.current;
+
+      mobile.x = clamp((event.clientX - centerX) / horizontalRange, -1, 1);
+
+      mobile.y = clamp((event.clientY - centerY) / verticalRange, -1, 1);
+
+      mobile.lastTime = performance.now();
+
+      startMobileAnimation();
+    };
+
+    const handleMobilePointerDown = (event: PointerEvent): void => {
+      if (!shouldUseMobileAnimation() || event.pointerType !== 'touch') {
+        return;
+      }
+
+      touchActive = true;
+      handleMobileTouch(event);
+    };
+
+    const handleMobilePointerMove = (event: PointerEvent): void => {
+      if (!touchActive) {
+        return;
+      }
+
+      handleMobileTouch(event);
+    };
+
+    const handleMobilePointerUp = (): void => {
+      touchActive = false;
+    };
+
+    const handleScroll = (): void => {
+      if (!shouldUseMobileAnimation()) {
+        return;
+      }
+
+      const mobile = mobileRef.current;
+      const currentScrollY = window.scrollY;
+
+      const delta = currentScrollY - mobile.lastScrollY;
+
+      mobile.lastScrollY = currentScrollY;
+
+      if (Math.abs(delta) < 1) return;
+
+      const impulse = clamp(delta / 30, -1.5, 1.5);
+
+      mobile.scrollImpulse = clamp(mobile.scrollImpulse + impulse, -1.5, 1.5);
+
+      startMobileAnimation();
+    };
+
+    const handleVisibilityChange = (): void => {
+      if (document.hidden) {
+        stopMobileAnimation();
+      } else {
+        mobileRef.current.lastScrollY = window.scrollY;
+
+        startMobileAnimation();
+      }
+    };
+
+    const handleDeviceChange = (): void => {
+      stopMobileAnimation();
+      resetPosition();
+
+      touchActive = false;
+      mobileAnimationStart = 0;
+
+      mobileRef.current.current = createMovement();
+      mobileRef.current.scrollImpulse = 0;
+      mobileRef.current.lastTime = 0;
+      mobileRef.current.lastScrollY = window.scrollY;
+
+      startMobileAnimation();
+    };
+
+    const handleWindowBlur = (): void => {
+      resetPosition();
+      stopMobileAnimation();
+    };
+
+    const handleWindowFocus = (): void => {
+      startMobileAnimation();
+    };
+
+    mobileRef.current.lastScrollY = window.scrollY;
 
     window.addEventListener('pointermove', handlePointerMove, {
       passive: true,
     });
 
-    window.addEventListener('blur', resetPosition);
+    window.addEventListener('pointerdown', handleMobilePointerDown, {
+      passive: true,
+    });
+
+    window.addEventListener('pointermove', handleMobilePointerMove, {
+      passive: true,
+    });
+
+    window.addEventListener('pointerup', handleMobilePointerUp);
+
+    window.addEventListener('pointercancel', handleMobilePointerUp);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    window.addEventListener('blur', handleWindowBlur);
+
+    window.addEventListener('focus', handleWindowFocus);
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     pointerMedia.addEventListener('change', handleDeviceChange);
 
+    mobileMedia.addEventListener('change', handleDeviceChange);
+
     reducedMotionMedia.addEventListener('change', handleDeviceChange);
+
+    startMobileAnimation();
 
     return () => {
       window.removeEventListener('pointermove', handlePointerMove);
 
-      window.removeEventListener('blur', resetPosition);
+      window.removeEventListener('pointerdown', handleMobilePointerDown);
+
+      window.removeEventListener('pointermove', handleMobilePointerMove);
+
+      window.removeEventListener('pointerup', handleMobilePointerUp);
+
+      window.removeEventListener('pointercancel', handleMobilePointerUp);
+
+      window.removeEventListener('scroll', handleScroll);
+
+      window.removeEventListener('blur', handleWindowBlur);
+
+      window.removeEventListener('focus', handleWindowFocus);
+
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
 
       pointerMedia.removeEventListener('change', handleDeviceChange);
 
+      mobileMedia.removeEventListener('change', handleDeviceChange);
+
       reducedMotionMedia.removeEventListener('change', handleDeviceChange);
 
+      stopMobileAnimation();
       resetPosition();
     };
   }, []);
