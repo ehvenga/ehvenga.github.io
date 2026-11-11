@@ -1,285 +1,435 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { Lilita_One } from 'next/font/google';
 
 import { FaLinkedin, FaGithub, FaNpm } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { IoLinkSharp } from 'react-icons/io5';
 
-const lilitaOne = Lilita_One({ weight: '400', subsets: ['latin'] });
+const lilitaOne = Lilita_One({
+  weight: '400',
+  subsets: ['latin'],
+});
+
+interface NavItem {
+  href: string;
+  label: string;
+  desc: string;
+}
+
+type ColorScheme = 'teal' | 'cyan' | 'orange' | 'rose' | 'violet';
+
+const navItems: NavItem[] = [
+  {
+    href: '/',
+    label: 'Home',
+    desc: 'Go back to Home',
+  },
+  {
+    href: '/work',
+    label: 'Work',
+    desc: 'My approach to development and analysis',
+  },
+  {
+    href: '/projects',
+    label: 'Projects',
+    desc: 'Take a look at my projects',
+  },
+  {
+    href: '/about',
+    label: 'About',
+    desc: 'A little about my background',
+  },
+];
+
+const colorClasses: Record<ColorScheme, string> = {
+  teal: 'text-teal-900',
+  cyan: 'text-cyan-900',
+  orange: 'text-orange-900',
+  rose: 'text-rose-900',
+  violet: 'text-violet-900',
+};
+
+const getColorScheme = (pathname: string): ColorScheme => {
+  switch (pathname) {
+    case '/':
+      return 'teal';
+    case '/work':
+      return 'cyan';
+    case '/projects':
+      return 'orange';
+    case '/about':
+      return 'rose';
+    default:
+      return 'teal';
+  }
+};
 
 const Navbar: React.FC = () => {
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [barDone, setBarDone] = useState(false);
-  const [iconsDone, setIconsDone] = useState(false);
-  const [color, setColor] = useState('text-teal-900');
-  const [showAlert, setShowAlert] = useState(false);
-  const [parent] = useAutoAnimate<HTMLUListElement>();
+
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const firstMenuItemRef = useRef<HTMLAnchorElement>(null);
 
-  useEffect(() => {
-    handleColorScheme(pathname);
-  }, [pathname, menuOpen]);
+  const alertTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const previousPathRef = useRef<string>(pathname);
+
+  const color: ColorScheme = menuOpen ? 'violet' : getColorScheme(pathname);
+
+  const textColor = colorClasses[color];
 
   useEffect(() => {
-    if (menuOpen && firstMenuItemRef.current) {
-      firstMenuItemRef.current.focus();
+    const handleScroll = (): void => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (previousPathRef.current !== pathname) {
+      previousPathRef.current = pathname;
+
+      const frameId = window.requestAnimationFrame(() => {
+        setMenuOpen(false);
+      });
+
+      return () => {
+        window.cancelAnimationFrame(frameId);
+      };
     }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+
+    firstMenuItemRef.current?.focus();
+
+    const handleEscape = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleEscape);
+    };
   }, [menuOpen]);
 
-  const handleColorScheme = (currentPath: string) => {
-    if (menuOpen) {
-      return setColor('violet');
-    }
-    switch (currentPath) {
-      case '/':
-        setColor('teal');
-        break;
-      case '/work':
-        setColor('cyan');
-        break;
-      case '/projects':
-        setColor('orange');
-        break;
-      case '/about':
-        setColor('rose');
-        break;
-      default:
-        setColor('teal');
-        break;
-    }
+  useEffect(() => {
+    return () => {
+      if (alertTimeoutRef.current !== null) {
+        clearTimeout(alertTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleMenuOpen = (): void => {
+    setMenuOpen((previous: boolean) => !previous);
   };
 
-  const handleMenuOpen = () => {
-    if (menuOpen) {
-      setBarDone(false);
-      setIconsDone(false);
+  const closeMenu = (): void => {
+    setMenuOpen(false);
+  };
+
+  const copyToClipboard = async (): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText('https://ehvenga.github.io');
+
+      setShowAlert(true);
+
+      if (alertTimeoutRef.current !== null) {
+        clearTimeout(alertTimeoutRef.current);
+      }
+
+      alertTimeoutRef.current = setTimeout(() => {
+        setShowAlert(false);
+        alertTimeoutRef.current = null;
+      }, 2000);
+    } catch (error: unknown) {
+      console.error('Failed to copy link:', error);
+      window.alert('Failed to copy link. Please try again.');
     }
-    setMenuOpen(!menuOpen);
   };
-
-  const copyToClipboard = () => {
-    const link = 'https://ehvenga.github.io';
-    navigator.clipboard
-      .writeText(link)
-      .then(() => {
-        setShowAlert(true);
-        setTimeout(() => {
-          setShowAlert(false);
-        }, 2000);
-      })
-      .catch((error) => {
-        console.error('Failed to copy link:', error);
-        alert('Failed to copy link. Please try again.');
-      });
-  };
-
-  const navItems = [
-    { href: '/', label: 'Home', desc: 'Go back to Home' },
-    {
-      href: '/work',
-      label: 'Work',
-      desc: 'My approach to development and analysis',
-    },
-    {
-      href: '/projects',
-      label: 'Projects',
-      desc: 'Take a look at my projects',
-    },
-    { href: '/about', label: 'About', desc: 'A little about my background' },
-  ];
-
-  const socialIcons = [
-    {
-      href: 'https://www.linkedin.com/in/ehvenga/',
-      icon: (
-        <FaLinkedin className='w-6 h-6 text-violet-950 hover:text-violet-600' />
-      ),
-      label: 'LinkedIn',
-    },
-    {
-      href: 'https://github.com/ehvenga',
-      icon: (
-        <FaGithub className='w-6 h-6 text-violet-950 hover:text-violet-600' />
-      ),
-      label: 'GitHub',
-    },
-    {
-      href: 'mailto:ehvenga@gmail.com?subject=Hello%20Hari',
-      icon: (
-        <MdEmail className='w-6 h-6 text-violet-950 hover:text-violet-600' />
-      ),
-      label: 'Email',
-    },
-    {
-      href: 'https://www.npmjs.com/~ehvenga',
-      icon: <FaNpm className='w-8 h-6 text-violet-950 hover:text-violet-600' />,
-      label: 'NPM',
-    },
-    {
-      href: '',
-      icon: (
-        <IoLinkSharp
-          onClick={copyToClipboard}
-          className='w-6 h-8 text-violet-950 hover:text-violet-600'
-        />
-      ),
-      label: 'Copy Link',
-    },
-  ];
 
   return (
     <nav aria-label='Main navigation'>
-      <div className='bg-white absolute h-10 z-20 w-full top-0'></div>
+      {/* Navbar with blur extending to the top */}
+      <div
+        className='
+          fixed top-0 left-8 right-8
+          z-50 h-24
+          pointer-events-none
+        '
+      >
+        {/* Backdrop layer covers the top gap and header */}
+        <div
+          aria-hidden='true'
+          className={`
+            absolute inset-0
+            pointer-events-none
+            transition-[background-color,backdrop-filter,box-shadow]
+            duration-300
+            ${
+              menuOpen
+                ? 'bg-violet-50/95'
+                : scrolled
+                ? 'bg-white/75 shadow-sm'
+                : 'bg-white/10'
+            }
+          `}
+          style={{
+            WebkitBackdropFilter: menuOpen
+              ? 'blur(32px)'
+              : scrolled
+              ? 'blur(32px) saturate(140%)'
+              : 'blur(4px)',
+            backdropFilter: menuOpen
+              ? 'blur(32px)'
+              : scrolled
+              ? 'blur(32px) saturate(140%)'
+              : 'blur(4px)',
+          }}
+        />
 
+        {/* Navbar items retain original 32px top offset */}
+        <div
+          className='
+            absolute top-8 left-0 right-0
+            h-16
+            px-4 sm:px-8 lg:px-12
+            flex items-center justify-between
+            pointer-events-auto
+          '
+        >
+          <div className='flex items-center min-w-0 gap-3 sm:gap-5'>
+            <Link
+              href='/'
+              onClick={closeMenu}
+              className={`
+                ${lilitaOne.className}
+                text-lg sm:text-xl
+                ${textColor}
+                whitespace-nowrap
+                transition-colors duration-300
+              `}
+              aria-label='ehvenga home'
+            >
+              ehvenga
+            </Link>
+
+            <div className='w-px h-6 bg-gray-400 shrink-0' />
+
+            <button
+              ref={menuButtonRef}
+              type='button'
+              onClick={handleMenuOpen}
+              aria-expanded={menuOpen}
+              aria-controls='navbar-menu'
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              className={`
+                ${textColor}
+                min-h-11
+                flex items-center justify-center
+                font-bold text-[11px] sm:text-xs
+                tracking-[0.18em] sm:tracking-[0.25em]
+                hover:tracking-[0.3em]
+                transition-all duration-300
+                whitespace-nowrap
+                cursor-pointer
+              `}
+            >
+              {menuOpen ? 'CLOSE' : 'MENU'}
+            </button>
+          </div>
+
+          <Link
+            href='mailto:ehvenga@gmail.com?subject=Hello%20Hari'
+            target='_blank'
+            aria-label='Hire me'
+            className='
+              flex items-center justify-center
+              min-h-11
+              shrink-0
+              text-cyan-950 font-bold
+              text-[11px] sm:text-xs
+              tracking-[0.15em] sm:tracking-[0.25em]
+              hover:text-teal-600
+              transition-colors duration-300
+              whitespace-nowrap
+            '
+          >
+            HIRE ME
+          </Link>
+        </div>
+      </div>
+
+      {/* Copy confirmation */}
       {showAlert && (
         <div
-          role='alert'
-          className='fixed top-20 left-1/2 transform -translate-x-1/2 bg-violet-950 text-white px-4 py-2 rounded-lg shadow-lg z-50'
+          role='status'
+          className='
+            fixed top-28 left-1/2 -translate-x-1/2
+            bg-violet-950 text-white
+            px-4 py-2 rounded-lg shadow-lg
+            z-[70] text-sm whitespace-nowrap
+          '
         >
           Link copied successfully
         </div>
       )}
 
+      {/* Expanded navigation menu */}
       <div
-        className={`m-8 pt-12 px-4 sm:px-12 flex justify-between overflow-hidden z-10 fixed -top-10 left-0 w-screen-minus-10 h-screen-minus-10 bg-violet-50 items-start transform transition-transform duration-200 ${
-          menuOpen
-            ? 'translate-y-10 pointer-events-auto'
-            : '-translate-y-full pointer-events-none'
-        }`}
+        id='navbar-menu'
+        aria-label='Navigation menu'
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
+        className={`
+          fixed z-40
+          top-8 bottom-8 left-8 right-8
+          bg-violet-50
+          overflow-y-auto overscroll-contain
+          transition-all duration-300 ease-in-out
+          ${
+            menuOpen
+              ? 'opacity-100 translate-y-0 visible'
+              : 'opacity-0 -translate-y-5 invisible pointer-events-none'
+          }
+        `}
       >
-        <div className='flex items-center divide-x divide-gray-500 gap-x-4'>
-          <Link className={lilitaOne.className} href={'/'}>
-            <div className={`text-xl text-${color}-900`}>ehvenga</div>
-          </Link>
-          <div className='pl-4'>
-            <button
-              ref={menuButtonRef}
-              onClick={handleMenuOpen}
-              aria-expanded={menuOpen}
-              aria-controls='navbar-menu'
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-              className={`font-bold text-xs text-${color}-900 pl-2`}
-            >
-              <span className='flex justify-center w-10 tracking-[0.25rem] hover:tracking-[0.3rem] transition-[letter-spacing] duration-300 ease-in-out'>
-                {menuOpen ? 'CLOSE' : 'MENU'}
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <Link
-          className='font-bold text-xs text-cyan-950 tracking-[0.25rem] hover:tracking-[0.3rem] transition-[letter-spacing] duration-300 ease-in-out w-24 flex justify-center'
-          href='mailto:ehvenga@gmail.com?subject=Hello%20Hari'
-          target='_blank'
-          aria-label='Hire me'
-        >
-          HIRE ME
-        </Link>
-
-        <div className='absolute mt-24 text-cyan-950 font-bold text-4xl sm:text-6xl w-full'>
-          <div className='flex gap-x-10 items-center'>
+        <div className='pt-28 px-4 sm:px-8 lg:px-12 pb-12'>
+          {/* Social links */}
+          <div className='flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 mb-12'>
             <div
-              className={`border-b-4 border-violet-400 mt-3 mb-20 relative ${
-                menuOpen ? 'animate-slideInBarFromRight' : 'w-0 opacity-0'
-              }`}
-              onAnimationEnd={() => setBarDone(true)}
-            ></div>
+              className={`
+                h-1 bg-violet-400
+                transition-all duration-700 ease-out
+                ${menuOpen ? 'w-24 sm:w-40' : 'w-0'}
+              `}
+            />
 
-            <div className='flex items-center -translate-y-8 gap-x-10 overflow-hidden'>
-              {socialIcons.map((item, idx) => {
-                const iconDelay = 0.05 * idx;
-                const isLastIcon = idx === socialIcons.length - 1;
+            <div className='flex flex-wrap items-center gap-5 sm:gap-8'>
+              <Link
+                href='https://www.linkedin.com/in/ehvenga/'
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label='LinkedIn'
+                className='text-violet-950 hover:text-violet-600 transition-colors'
+              >
+                <FaLinkedin className='w-6 h-6' />
+              </Link>
 
-                return (
-                  <Link href={item.href} key={idx} aria-label={item.label}>
-                    <div
-                      style={{ animationDelay: `${iconDelay}s` }}
-                      className={
-                        menuOpen && barDone
-                          ? 'animate-slideInIconFromRight opacity-0'
-                          : 'opacity-0'
-                      }
-                      onAnimationEnd={() => {
-                        if (isLastIcon) setIconsDone(true);
-                      }}
-                    >
-                      {item.icon}
-                    </div>
-                  </Link>
-                );
-              })}
+              <Link
+                href='https://github.com/ehvenga'
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label='GitHub'
+                className='text-violet-950 hover:text-violet-600 transition-colors'
+              >
+                <FaGithub className='w-6 h-6' />
+              </Link>
+
+              <Link
+                href='mailto:ehvenga@gmail.com?subject=Hello%20Hari'
+                aria-label='Email'
+                className='text-violet-950 hover:text-violet-600 transition-colors'
+              >
+                <MdEmail className='w-6 h-6' />
+              </Link>
+
+              <Link
+                href='https://www.npmjs.com/~ehvenga'
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label='NPM'
+                className='text-violet-950 hover:text-violet-600 transition-colors'
+              >
+                <FaNpm className='w-8 h-6' />
+              </Link>
+
+              <button
+                type='button'
+                onClick={() => {
+                  void copyToClipboard();
+                }}
+                aria-label='Copy website link'
+                className='text-violet-950 hover:text-violet-600 transition-colors cursor-pointer'
+              >
+                <IoLinkSharp className='w-6 h-7' />
+              </button>
             </div>
           </div>
 
-          <ul ref={parent} id='navbar-menu' className='flex gap-y-16 flex-col'>
-            {navItems.map((item, index) => {
-              const dropDelay = 0.08 * index;
-
-              return (
-                <span
-                  key={index}
-                  style={{ animationDelay: `${dropDelay}s` }}
-                  className={
-                    menuOpen && barDone && iconsDone
-                      ? 'animate-softDrop opacity-0 grid grid-cols-1 sm:grid-cols-4 items-end group'
-                      : 'opacity-0'
+          {/* Navigation links */}
+          <ul className='flex flex-col gap-8 sm:gap-12'>
+            {navItems.map((item: NavItem, index: number) => (
+              <li
+                key={item.href}
+                className={`
+                  grid grid-cols-1
+                  lg:grid-cols-[minmax(0,350px)_1fr]
+                  items-center gap-2 lg:gap-10
+                  transition-all duration-500 ease-out
+                  ${
+                    menuOpen
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-5'
                   }
+                `}
+                style={{
+                  transitionDelay: menuOpen ? `${index * 80 + 100}ms` : '0ms',
+                }}
+              >
+                <Link
+                  ref={index === 0 ? firstMenuItemRef : null}
+                  href={item.href}
+                  onClick={closeMenu}
+                  aria-label={item.desc}
+                  aria-current={pathname === item.href ? 'page' : undefined}
+                  className='
+                    w-fit
+                    text-4xl sm:text-6xl lg:text-7xl
+                    font-bold leading-tight
+                    text-violet-950
+                    hover:text-violet-600
+                    transition-colors duration-300
+                  '
                 >
-                  <li onClick={handleMenuOpen}>
-                    <Link
-                      ref={index === 0 ? firstMenuItemRef : null}
-                      className='col-start-1 transition-all duration-200 group hover:text-violet-600 text-violet-950'
-                      href={item.href}
-                      aria-label={item.desc}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                  <span className='hidden lg:block text-base font-medium col-start-2 text-violet-950 group text-violet-800-hover:text-violet-900'>
-                    {item.desc}
-                  </span>
+                  {item.label}
+                </Link>
+
+                <span className='hidden lg:block text-base font-medium text-violet-800'>
+                  {item.desc}
                 </span>
-              );
-            })}
+              </li>
+            ))}
           </ul>
         </div>
-      </div>
-
-      <div className='p-8 sm:p-20 flex justify-between absolute w-full items-start'>
-        <div className='flex items-center divide-x divide-gray-500 gap-x-4'>
-          <Link className={lilitaOne.className} href={'/'}>
-            <div className={`text-xl text-${color}-900`}>ehvenga</div>
-          </Link>
-          <div className='pl-4'>
-            <button
-              onClick={handleMenuOpen}
-              aria-expanded={menuOpen}
-              aria-controls='navbar-menu'
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-              className={`font-bold text-xs text-${color}-900 pl-2`}
-            >
-              <span className='flex justify-center w-10 tracking-[0.25rem] hover:tracking-[0.3rem] transition-[letter-spacing] duration-300 ease-in-out'>
-                {menuOpen ? 'CLOSE' : 'MENU'}
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <Link
-          className='font-bold text-xs text-cyan-950 tracking-[0.25rem] hover:tracking-[0.3rem] transition-[letter-spacing] duration-300 ease-in-out w-24 flex justify-center'
-          href='mailto:ehvenga@gmail.com?subject=Hello%20Hari'
-          target='_blank'
-          aria-label='Hire me'
-        >
-          HIRE ME
-        </Link>
       </div>
     </nav>
   );
